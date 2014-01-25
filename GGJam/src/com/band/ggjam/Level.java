@@ -27,7 +27,7 @@ public class Level {
 	
 	private Particle particle;
 	private Wave wave;
-	private int[] goal;
+	private Point goal;
 	
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle;
@@ -65,7 +65,7 @@ public class Level {
 		for(MapObject object : map.getLayers().get(2).getObjects()) {
 			MapProperties properties = object.getProperties();
 			if(object.getName().equals("Goal")) {
-				goal = new int[] { (Integer) properties.get("x"), (Integer) properties.get("y") };
+				goal = new Point( (Integer) properties.get("x"), (Integer) properties.get("y") );
 			}
 			else if(object.getName().equals("Particle")) {
 				particle = new Particle((Integer) properties.get("x"), (Integer) properties.get("y"), this);
