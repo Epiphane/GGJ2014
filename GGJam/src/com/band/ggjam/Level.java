@@ -23,11 +23,9 @@ public class Level {
 	 */
 	private int width, height;
 	
-	private ArrayList<Particle> particles;
-	private ArrayList<Wave> waves;
+	private Particle particle;
+	private Wave wave;
 	
-	private Particle activeParticle;
-	private Wave activeWave;
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle;
 	
@@ -43,6 +41,11 @@ public class Level {
 		
 		map = new TmxMapLoader().load("levels/"+mapName);
 
+		// TODO: get the correct wave / particle position from the map
+		wave = new Wave(5, 5);
+		particle = new Particle(20, 20);
+		controllingParticle = true;
+		
 //		placeCharacters();
 		
 		// Set size
@@ -65,28 +68,6 @@ public class Level {
 		}
 		batch = new SpriteBatch(100);
 		
-		particles = new ArrayList<Particle>();
-		waves = new ArrayList<Wave>();
-		
-		controllingParticle = true;
-	}
-	
-	public void addWave(int x, int y) {
-		waves.add(new Wave(x, y));
-	}
-	
-	public void addParticle(int x, int y) {
-		particles.add(new Particle(x,y));
-	}
-	
-	public void setActiveParticle(int particleNum) {
-		activeParticle = particles.get(particleNum);
-		controllingParticle = true;
-	}
-	
-	public void setActiveWave(int waveNum) {
-		activeWave = waves.get(waveNum);
-		controllingParticle = false;
 	}
 	
 	/**
@@ -106,8 +87,8 @@ public class Level {
 		renderer.render();
 		
 		batch.begin();
-		activeParticle.draw(batch);
-		activeWave.draw(batch);
+		particle.draw(batch);
+		wave.draw(batch);
 		batch.end();
 	}
 
@@ -117,9 +98,9 @@ public class Level {
 		}
 		
 		if (controllingParticle) {
-			activeParticle.tick(input);
+			particle.tick(input);
 		} else {
-			activeWave.tick(input);
+			wave.tick(input);
 		}
 	}
 
