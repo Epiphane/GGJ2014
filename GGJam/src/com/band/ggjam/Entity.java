@@ -64,6 +64,8 @@ public class Entity extends Sprite {
 	 * @param dy
 	 */
 	public void tryMove(float dx, float dy) {
+		if(dx == 0 && dy == 0) return;
+		
 		float w = getWidth();
 		float h = getHeight();
 
@@ -75,7 +77,6 @@ public class Entity extends Sprite {
 			// Hit a wall
 			hitWall(dx, dy);
 		}
-		
 
 		// Next, move vertically
 		if (currentLevel.canMove(this, x, y + dy, w, h)) {
@@ -84,6 +85,7 @@ public class Entity extends Sprite {
 			// Hit the wall
 			hitWall(dx, dy);
 		}
+		
 		setPosition(x, y);
 	}
 

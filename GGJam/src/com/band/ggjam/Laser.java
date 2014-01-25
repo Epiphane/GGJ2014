@@ -10,15 +10,14 @@ public class Laser extends Entity {
 	private boolean toBeDead = false;
 	
 	public Laser(float x, float y, Level level, float dx, float dy) {
-		super(x, y, Art.laser[0][0], level);
+		super(x, y + 10, Art.laser[0][0], level);
 		
 		this.dx = dx;
 		this.dy = dy;
 		
 		float angle = (float) (Math.atan(dy / dx) * 180 / Math.PI);
-		System.out.println(angle);
+		setOrigin(16,6);
 		setRotation(angle - 90);
-		setOrigin(0,0);
 	}
 	
 	public void tick() {
@@ -31,5 +30,9 @@ public class Laser extends Entity {
 	public void hitWall(float dx, float dy) {
 		toBeDead = true;
 		setRegion(Art.laser[0][2]);
+	}
+	
+	public boolean canPass(Entity other) {
+		return (other instanceof Laser) || (other instanceof Emitter);
 	}
 }

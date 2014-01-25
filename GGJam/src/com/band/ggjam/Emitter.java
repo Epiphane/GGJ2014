@@ -6,16 +6,15 @@ public class Emitter extends Entity {
 	int shotDelay;
 	
 	public Emitter(int x, int y, Level level) {
-		super(x, y, level);
-		// TODO Auto-generated constructor stub
+		super(x, y, Art.entities[0][0], level);
 	}
 	
 	public void tick() {
 		if(shotDelay++ > SHOT_TIMER) {
-			currentLevel.add(new Laser(x, y, currentLevel, Laser.LASER_SPEED, 0));
-			currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, 0));
-			currentLevel.add(new Laser(x, y, currentLevel, 0, -Laser.LASER_SPEED));
-			currentLevel.add(new Laser(x, y, currentLevel, 0, Laser.LASER_SPEED));
+			currentLevel.add(new Laser(x, y, currentLevel, Laser.LASER_SPEED, 0), true);
+			currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, 0), true);
+			currentLevel.add(new Laser(x, y, currentLevel, 0, -Laser.LASER_SPEED), true);
+			currentLevel.add(new Laser(x, y, currentLevel, 0, Laser.LASER_SPEED), true);
 		}
 	}
 }

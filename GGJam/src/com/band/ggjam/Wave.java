@@ -43,29 +43,6 @@ public class Wave extends Entity {
 			y += WAVE_SPEED * dy;
 			
 			tickTails();
-			
-//			float w = getWidth();
-//			float h = getHeight();
-//			
-//			// First, try to move horizontally
-//			if (currentLevel.canMove(this, x + WAVE_SPEED * dx, y, w, h)) {
-//				x += WAVE_SPEED * dx;
-//				tickTails();
-//			} 
-//			else {
-//				// Hit a wall
-//				hitWall(WAVE_SPEED * dx, WAVE_SPEED * dy);
-//			}
-//			
-//
-//			// Next, move vertically
-//			if (currentLevel.canMove(this, x, y + WAVE_SPEED * dy, w, h)) {
-//				y += WAVE_SPEED * dy;
-//				tickTails();
-//			} else {
-//				// Hit the wall
-//				hitWall(WAVE_SPEED * dx, WAVE_SPEED * dy);
-//			}
 		} else {
 			Point offset = input.buttonStack.walkDirection();
 			if (!offset.equals(new Point(0, 0))) {
@@ -113,5 +90,9 @@ public class Wave extends Entity {
 				return true;
 		}
 		return super.collide(x, y, w, h);
+	}
+	
+	public boolean canPass(Entity other) {
+		return (other instanceof Laser);
 	}
 }
