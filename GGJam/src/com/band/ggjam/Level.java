@@ -94,11 +94,14 @@ public class Level {
 		
 		// Sort the wave tails
 		Collections.sort(newTails);
-		for (int i = 0; i < newTails.size(); i++) {
+		
+		WaveTail lastGuy = newTails.get(newTails.size() - 1);
+		for (int i = newTails.size() - 1; i >= 0; i--) {
 			WaveTail w = newTails.get(i);
-			w.direction = lastTail.addPoint(new Point(w.tileX, w.tileY));
+			w.direction = new Point(lastTail.x - w.tileX, lastTail.y - w.tileY);
 			lastTail = new Point(w.tileX, w.tileY);
 		}
+		wave.tails = newTails;
 		
 		batch = new SpriteBatch(1);
 		
@@ -143,7 +146,9 @@ public class Level {
 		
 		batch.begin();
 		if(particle != null) particle.draw(batch);
-		if(wave != null) wave.draw(batch);
+		if(wave != null) {
+			wave.draw(batch);
+		}
 		batch.end();
 	}
 
@@ -166,10 +171,11 @@ public class Level {
 				controllingParticle = !controllingParticle;
 			}
 			
-			if (controllingParticle)
+			if (controllingParticle) {
 				if(particle != null) particle.tick(input);
-			else
+			} else {
 				if(wave != null) wave.tick(input);
+			}
 		}
 	}
 

@@ -16,7 +16,7 @@ public class Art {
 	
 	public static void load () {
 		particle = split("img/DAHT.png", 32, 32);
-		wave = split("img/WAIV.png", 16, 16);
+		wave = split("img/WAIV.png", 32, 32);
 		
 		loaded = true;
 	}
