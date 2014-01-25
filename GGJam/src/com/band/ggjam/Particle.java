@@ -3,6 +3,8 @@ package com.band.ggjam;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Particle extends Entity {
+	public static int PARTICLE_SPEED = 5;
+	
 	private TextureRegion[][] spriteSheet;
 
 	public Particle(int x, int y) {
@@ -15,7 +17,7 @@ public class Particle extends Entity {
 
 		Point offset = input.buttonStack.airDirection();
 
-		x += offset.x;
-		y += offset.y;
+		x += offset.x * PARTICLE_SPEED;
+		y += offset.y * PARTICLE_SPEED;
 	}
 }

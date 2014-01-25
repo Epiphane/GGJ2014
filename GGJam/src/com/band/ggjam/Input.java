@@ -13,10 +13,10 @@ public class Input implements InputProcessor {
 			 * "up" press, but we still want to be able to use the "up" press when
 			 * we are figuring out the direction to use an ability. So, this prevents
 			 * a jump from being used multiple times but keeps it in the stack!*/
-			boolean usedJump;
+			boolean usedNode;
 			public Node(int button) {
 				this.button = button;
-				usedJump = false;
+				usedNode = false;
 			}
 		}
 		
@@ -90,8 +90,18 @@ public class Input implements InputProcessor {
 		/** @return True if there's an unused UP in the stack, false otherwise */
 		public boolean shouldJump() {
 			Node upNode = find(UP);
-			if(upNode != null && !upNode.usedJump) {
-				upNode.usedJump = true;
+			if(upNode != null && !upNode.usedNode) {
+				upNode.usedNode = true;
+				return true;
+			}
+			return false;
+		}
+		
+		/** @return True if there's an unused SPACE (switch) in the stack, false otherwise */
+		public boolean shouldSwitch() {
+			Node switchNode = find(ACTION);
+			if(switchNode != null && !switchNode.usedNode) {
+				switchNode.usedNode = true;
 				return true;
 			}
 			return false;
@@ -200,7 +210,7 @@ public class Input implements InputProcessor {
 		else if (key == Keys.DPAD_RIGHT) button = RIGHT;
 		
 		else if (key == Keys.Z)          button = DASH;
-		else if (key == Keys.X)		     button = ACTION;
+		else if (key == Keys.SPACE)		     button = ACTION;
 		
 		// If it's recognized, set the state in the array
 		if(button >= 0) {

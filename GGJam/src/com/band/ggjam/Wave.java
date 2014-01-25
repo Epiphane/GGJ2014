@@ -12,7 +12,10 @@ public class Wave extends Entity {
 	
 	public void tick(Input input) {
 		super.tick();
-		
-		// TODO: anything, really
+
+		Point offset = input.buttonStack.airDirection();
+
+		x += offset.x;
+		y += offset.y;
 	}
 }
