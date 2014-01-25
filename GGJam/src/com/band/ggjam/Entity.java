@@ -54,10 +54,6 @@ public class Entity extends Sprite {
 	public void tick() {
 		if (currentLevel == null) // Do nothing if we're not in a world
 			return;
-		
-		onGround = checkDirection(Input.DOWN);
-		againstRWall = checkDirection(Input.RIGHT);
-		againstLWall = checkDirection(Input.LEFT);
 	}
 
 	/**
