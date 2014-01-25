@@ -7,6 +7,8 @@ public class Utility {
 	 */
 	public static Point offsetFromDirection(int dir) {
 		switch(dir) {
+		case Input.NO_DIRECTION:
+			return new Point(0, 0);
 		case 0:
 			return new Point(0, 1);
 		case 1:
