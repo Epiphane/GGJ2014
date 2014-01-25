@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Wave extends Entity {
-	public static final int WAVE_SPEED = 4;
+	public static final int WAVE_SPEED = 8;
 	
 	/** How long in ticks it takes to move one square for the Wave */
 	public static final int MOVE_TICKS = (int) GGJam.TILE_SIZE / WAVE_SPEED;
@@ -28,9 +28,6 @@ public class Wave extends Entity {
 
 		spriteSheet = Art.wave;
 		tails = new ArrayList<WaveTail>();
-		
-		// Initialize the tail facing to the right ->
-		Point offset = Utility.offsetFromDirection(Input.LEFT);
 	}
 	
 	public void tick(Input input) {
@@ -67,7 +64,6 @@ public class Wave extends Entity {
 				
 				moving = true;
 				moveTicks = MOVE_TICKS;
-				System.out.println("START Moving");
 			}
 		}
 	}
