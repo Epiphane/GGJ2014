@@ -44,6 +44,11 @@ public class Wave extends Entity {
 			
 			tickTails();
 			
+			if (dx < 0) {
+				this.setRegion(Art.wave[(moveTicks + 1) % 4][0]);
+			} else if (dx > 0)
+				this.setRegion(Art.wave[3 - (moveTicks) % 4][0]);
+			
 //			float w = getWidth();
 //			float h = getHeight();
 //			
@@ -68,6 +73,7 @@ public class Wave extends Entity {
 //			}
 		} else {
 			Point offset = input.buttonStack.walkDirection();
+			this.setRegion(Art.wave[0][0]);
 			if (!offset.equals(new Point(0, 0))) {
 				dx = offset.x;
 				dy = offset.y;
