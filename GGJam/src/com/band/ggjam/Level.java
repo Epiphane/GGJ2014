@@ -1,17 +1,18 @@
 package com.band.ggjam;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 
 
 public class Level {
@@ -27,7 +28,7 @@ public class Level {
 	
 	private Particle particle;
 	private Wave wave;
-	private Point goal;
+	private MapObject goal;
 	
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle;
@@ -65,7 +66,7 @@ public class Level {
 		for(MapObject object : map.getLayers().get(2).getObjects()) {
 			MapProperties properties = object.getProperties();
 			if(object.getName().equals("Goal")) {
-				goal = new Point( (Integer) properties.get("x"), (Integer) properties.get("y") );
+				goal = object;
 			}
 			else if(object.getName().equals("Particle")) {
 				particle = new Particle((Integer) properties.get("x"), (Integer) properties.get("y"), this);
@@ -98,6 +99,11 @@ public class Level {
 			if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1)) {
 				return false;
 			}
+		}
+
+		Rectangle polyToCheck = ((RectangleMapObject) goal).getRectangle();
+		if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1)) {
+			return false;
 		}
 		
 		return true;
