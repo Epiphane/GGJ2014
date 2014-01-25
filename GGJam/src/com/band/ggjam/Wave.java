@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Wave extends Entity {
 	private TextureRegion[][] spriteSheet;
 
-	public Wave(int x, int y) {
-		super(x, y, Art.wave[0][0]);
+	public Wave(int x, int y, Level level) {
+		super(x, y, Art.wave[0][0], level);
 		spriteSheet = Art.wave;
 	}
 	

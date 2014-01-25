@@ -16,7 +16,7 @@ public class InGameState extends GameState {
 		currentLevel.addWave(10, 10);
 		currentLevel.setActiveWave(0);
 		
-		currentLevel.addParticle(5, 5);
+		currentLevel.addParticle(50, 50);
 		currentLevel.setActiveParticle(0);
 	}
 	

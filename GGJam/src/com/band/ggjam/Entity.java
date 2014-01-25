@@ -1,7 +1,5 @@
 package com.band.ggjam;
 
-import java.util.logging.Level;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -19,12 +17,14 @@ public class Entity extends Sprite {
 	/**
 	 * Initializes the entity to a specific location.
 	 */
-	public Entity(int x, int y, TextureRegion texture) {
+	public Entity(int x, int y, TextureRegion texture, Level level) {
 		super(texture);
 		//setSize(getWidth() / GGJam.TILE_SIZE, getHeight() / GGJam.TILE_SIZE);
 		setPosition(x, y);
 		this.x = x;
 		this.y = y;
+		
+		currentLevel = level;
 	}
 
 	/**
@@ -40,6 +40,9 @@ public class Entity extends Sprite {
 	 * AI, walking off, and the like.
 	 */
 	public void tick() {
+		if(currentLevel == null)
+			return;
+		
 		setPosition(x, y);
 	}
 
@@ -50,7 +53,13 @@ public class Entity extends Sprite {
 	 * @param dy
 	 */
 	public void tryMove(float dx, float dy) {
-		
+		if(currentLevel != null) {
+			if(currentLevel.canMove(x + dx, y + dy, getWidth(), getHeight())) {
+				x += dx;
+				y += dy;
+				setPosition(x,y);
+			}
+		}
 	}
 
 	/**

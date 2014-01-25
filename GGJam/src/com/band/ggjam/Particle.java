@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Particle extends Entity {
 	private TextureRegion[][] spriteSheet;
 
-	public Particle(int x, int y) {
-		super(x, y, Art.particle[0][0]);
+	public Particle(int x, int y, Level level) {
+		super(x, y, Art.particle[0][0], level);
 		spriteSheet = Art.particle;
 	}
 
@@ -15,7 +15,9 @@ public class Particle extends Entity {
 
 		Point offset = input.buttonStack.airDirection();
 
-		x += offset.x;
-		y += offset.y;
+//		System.out.println(offset.x+", "+offset.y);
+		tryMove(offset.x, offset.y);
+//		x += offset.x;
+//		y += offset.y;
 	}
 }
