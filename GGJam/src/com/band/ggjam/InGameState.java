@@ -1,7 +1,5 @@
 package com.band.ggjam;
 
-import java.util.logging.Level;
-
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class InGameState extends GameState {
