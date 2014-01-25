@@ -10,7 +10,7 @@ public abstract class GameState {
 	protected SpriteBatch batch;
 	
 	private final String[] chars = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", ".,!?:;\"'+-=/\\< "};
-	private SpriteBatch spriteBatch;
+	protected SpriteBatch spriteBatch;
 	
 	private GGJam appListener;
 	
@@ -48,6 +48,7 @@ public abstract class GameState {
 	public void draw(TextureRegion region, int x, int y) {
 		int width = region.getRegionWidth();
 		if(width < 0) width *= -1;
+		assert(spriteBatch != null);
 		spriteBatch.draw(region, x, y, width, region.getRegionHeight());
 	}
 	

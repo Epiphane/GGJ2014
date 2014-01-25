@@ -30,7 +30,7 @@ public class Level {
 	public void render() {
 		for(int i = 0; i < tiles.length; i ++) {
 			for(int j = 0; j < tiles[0].length; j ++) {
-				gameState.draw(Art.tiles[0][tiles[i][j]], i*GGJam.TILE_SIZE, j*GGJam.TILE_SIZE);
+				gameState.draw(Art.tiles[tiles[i][j]][0], i*GGJam.TILE_SIZE, j*GGJam.TILE_SIZE);
 			}
 		}
 	}
