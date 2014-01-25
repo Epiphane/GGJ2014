@@ -137,9 +137,10 @@ public class Entity extends Sprite {
 	}
 	
 	public boolean collide(float x, float y, float w, float h) {
-		if((x <= this.x - getWidth() || x + w >= this.x) && 
-				(y <= this.y - getHeight() || y + h >= this.y))
+		if((x < this.x + getWidth() && x + w > this.x) && 
+				(y < this.y + getHeight() && y + h > this.y)){
 			return true;
+		}
 		return false;
 	}
 }
