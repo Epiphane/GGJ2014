@@ -32,4 +32,61 @@ public class Utility {
 		
 		return null;
 	}
+	
+	/**
+	 * Converts from a point-offset to a direction integer
+	 * @param offset The x and y of the direction
+	 * @return The int value of the direction (0-7)
+	 */
+	public static int directionFromOffset(Point offset) {
+		offset.x = sign(offset.x);
+		offset.y = sign(offset.y);
+		
+		if(offset.equals(new Point(0, 1))) {
+			return 0;
+		} else if(offset.equals(new Point(1, 1))) {
+			return 1;
+		} else if(offset.equals(new Point(1, 0))) {
+			return 2;
+		} else if(offset.equals(new Point(1, -1))) {
+			return 3;
+		} else if(offset.equals(new Point(0, -1))) {
+			return 4;
+		} else if(offset.equals(new Point(-1, -1))) {
+			return 5;
+		} else if(offset.equals(new Point(-1, 0))) {
+			return 6;
+		} else if(offset.equals(new Point(-1, 1))) {
+			return 7;
+		} else {
+			// PANIC EVERYTHING IS BROKEN
+			System.out.println("Invalid point... somehow?? Values: " 
+				+ offset.x + ", " + offset.y);
+		}
+		
+		return -1;
+	}	
+	
+	/** Returns -1, 0, or 1 based on the sign of x */
+	public static int sign(double x) {
+		if(x < 0) return -1;
+		if(x > 0) return 1;
+		return 0;
+	}
+	
+	public static int sign(int x) {
+		return sign((double) x);
+	}
+	
+	/** Returns a degree from 0 - 360 based on the int-direction */
+	public static float dirToDegree(int direction) {
+		return -direction * 45 + 270;
+	}
+	
+	/** Returns a degree from 0 - 360 based on the point-offset*/
+	public static float dirToDegree(Point offset) {
+		return dirToDegree(directionFromOffset(offset));
+	}
+	
+	
 }

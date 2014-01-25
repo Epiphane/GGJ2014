@@ -115,7 +115,7 @@ public class Level {
 		WaveTail lastGuy = newTails.get(newTails.size() - 1);
 		for (int i = newTails.size() - 1; i >= 0; i--) {
 			WaveTail w = newTails.get(i);
-			w.direction = new Point(lastTail.x - w.tileX, lastTail.y - w.tileY);
+			w.setDirection(new Point(lastTail.x - w.tileX, lastTail.y - w.tileY));
 			lastTail = new Point(w.tileX, w.tileY);
 		}
 		wave.tails = newTails;
