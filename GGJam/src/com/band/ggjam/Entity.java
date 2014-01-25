@@ -66,10 +66,9 @@ public class Entity extends Sprite {
 	public void tryMove(float dx, float dy) {
 		float w = getWidth();
 		float h = getHeight();
-		
 
 		// First, try to move horizontally
-		if (currentLevel.canMove(x + dx, y, w, h)) {
+		if (currentLevel.canMove(this, x + dx, y, w, h)) {
 			x += dx;
 		} 
 		else {
@@ -79,7 +78,7 @@ public class Entity extends Sprite {
 		
 
 		// Next, move vertically
-		if (currentLevel.canMove(x, y + dy, w, h)) {
+		if (currentLevel.canMove(this, x, y + dy, w, h)) {
 			y += dy;
 		} else {
 			// Hit the wall
@@ -100,7 +99,7 @@ public class Entity extends Sprite {
 		x += dx;
 		y += dy;
 
-		while(!currentLevel.canMove(x, y, getWidth(), getHeight())) {
+		while(!currentLevel.canMove(this, x, y, getWidth(), getHeight())) {
 			x -= dx * 0.01;
 			y -= dy * 0.01;
 		}
@@ -123,5 +122,24 @@ public class Entity extends Sprite {
 	public void draw(SpriteBatch batch) {
 		if(drawable)
 			super.draw(batch);
+	}
+	
+	/**
+	 * Determines whether two entities collide
+	 * By default, always.
+	 * When in doubt, always.
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public boolean canPass(Entity other) {
+		return false;
+	}
+	
+	public boolean collide(float x, float y, float w, float h) {
+		if((x <= this.x - getWidth() || x + w >= this.x) && 
+				(y <= this.y - getHeight() || y + h >= this.y))
+			return true;
+		return false;
 	}
 }

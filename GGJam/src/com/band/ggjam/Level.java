@@ -129,7 +129,7 @@ public class Level {
 	 * @param y
 	 * @return CAN WE MOVE THERE OR NOT
 	 */
-	public boolean canMove(float x, float y, float w, float h) {
+	public boolean canMove(Entity e, float x, float y, float w, float h) {
 		float x0 = (x    );// * GGJam.TILE_SIZE;
 		float y0 = (y    );// * GGJam.TILE_SIZE;
 		float x1 = (x + w);// * GGJam.TILE_SIZE;
@@ -146,9 +146,24 @@ public class Level {
 			}
 		}
 
-		Rectangle polyToCheck = ((RectangleMapObject) goal).getRectangle();
-		if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1))
-			beatLevel = true;
+		if(e instanceof Particle) {
+			Rectangle polyToCheck = ((RectangleMapObject) goal).getRectangle();
+			if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1))
+				beatLevel = true;
+			
+		}
+		else
+			if(!particle.canPass(e) && particle.collide(x, y, w, h))
+				return false;
+
+		if(!(e instanceof Wave) && !wave.canPass(e) && wave.collide(x, y, w, h))
+			return false;
+		
+		
+		for(Entity other : entities) {
+			if(!e.canPass(other) && e.collide(x, y, w, h))
+				return false;
+		}
 		
 		return true;
 	}

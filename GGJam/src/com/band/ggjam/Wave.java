@@ -41,34 +41,63 @@ public class Wave extends Entity {
 			if (moveTicks == 0) {
 				moving = false;
 			}
-			
+
 			x += WAVE_SPEED * dx;
 			y += WAVE_SPEED * dy;
 			
-			for (int i = 0; i < tails.size(); i++) {
-				tails.get(i).tick();
-				if (tails.get(i).dead)
-					tails.remove(i--);
-			}
+			tickTails();
+			
+//			float w = getWidth();
+//			float h = getHeight();
+//			
+//			// First, try to move horizontally
+//			if (currentLevel.canMove(this, x + WAVE_SPEED * dx, y, w, h)) {
+//				x += WAVE_SPEED * dx;
+//				tickTails();
+//			} 
+//			else {
+//				// Hit a wall
+//				hitWall(WAVE_SPEED * dx, WAVE_SPEED * dy);
+//			}
+//			
+//
+//			// Next, move vertically
+//			if (currentLevel.canMove(this, x, y + WAVE_SPEED * dy, w, h)) {
+//				y += WAVE_SPEED * dy;
+//				tickTails();
+//			} else {
+//				// Hit the wall
+//				hitWall(WAVE_SPEED * dx, WAVE_SPEED * dy);
+//			}
 		} else {
 			Point offset = input.buttonStack.walkDirection();
 			if (!offset.equals(new Point(0, 0))) {
 				dx = offset.x;
 				dy = offset.y;
+				
+				if(currentLevel.canMove(this, x + WAVE_SPEED * dx, y + WAVE_SPEED * dy, getWidth() - 1, getHeight() - 1)) {
 
-				// Create a new WaveTail at our old location
-				tails.add(new WaveTail((int) x, (int) y, currentLevel, offset));
-				
-				// Tell the WaveTail at the end to kill itself
-				tails.get(0).die();
-				
-				tileX += dx;
-				tileY += dy;
-				
-				moving = true;
-				moveTicks = MOVE_TICKS;
-				System.out.println("START Moving");
+					// Create a new WaveTail at our old location
+					tails.add(new WaveTail((int) x, (int) y, currentLevel, offset));
+					
+					// Tell the WaveTail at the end to kill itself
+					tails.get(0).die();
+					
+					tileX += dx;
+					tileY += dy;
+					
+					moving = true;
+					moveTicks = MOVE_TICKS;
+				}
 			}
+		}
+	}
+	
+	private void tickTails() {
+		for (int i = 0; i < tails.size(); i++) {
+			tails.get(i).tick();
+			if (tails.get(i).dead)
+				tails.remove(i--);
 		}
 	}
 	
@@ -79,5 +108,13 @@ public class Wave extends Entity {
 		for (WaveTail tail : tails) {
 			tail.draw(batch);
 		}
+	}
+	
+	public boolean collide(float x, float y, float w, float h) {
+		for(WaveTail tail : tails) {
+			if(tail.collide(x, y, w, h))
+				return true;
+		}
+		return super.collide(x, y, w, h);
 	}
 }
