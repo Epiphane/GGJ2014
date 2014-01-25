@@ -6,7 +6,7 @@ public class Wave extends Entity {
 	private TextureRegion[][] spriteSheet;
 
 	public Wave(int x, int y) {
-		super(0, y, Art.wave[0][0]);
+		super(x, y, Art.wave[0][0]);
 		spriteSheet = Art.wave;
 	}
 	
