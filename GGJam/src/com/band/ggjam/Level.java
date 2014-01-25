@@ -33,6 +33,8 @@ public class Level {
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle;
 	
+	private boolean beatLevel;
+	
 	private GameState gameState;
 	
 	private SpriteBatch batch;
@@ -76,6 +78,7 @@ public class Level {
 		batch = new SpriteBatch(1);
 		
 		controllingParticle = true;
+		beatLevel = false;
 	}
 	
 	/**
@@ -102,9 +105,8 @@ public class Level {
 		}
 
 		Rectangle polyToCheck = ((RectangleMapObject) goal).getRectangle();
-		if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1)) {
-			return false;
-		}
+		if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1))
+			beatLevel = true;
 		
 		return true;
 	}
@@ -121,14 +123,29 @@ public class Level {
 	}
 
 	public void tick(Input input) {
-		if (input.buttonStack.shouldSwitch()) {
-			controllingParticle = !controllingParticle;
+		// If we beat the level, do an animation
+		if(beatLevel) {
+			float dx = particle.x - (Integer) goal.getProperties().get("x");
+			particle.x -= dx * 0.1f;
+			float dy = particle.y - (Integer) goal.getProperties().get("y");
+			particle.y -= dy * 0.1f;
+			
+			particle.setPosition(particle.x, particle.y);
+			
+			if(Math.abs(dx) < 0.01f && Math.abs(dy) < 0.01f)
+				gameState.setScreen(new BeatLevelState(this));
 		}
-		
-		if (controllingParticle)
-			if(particle != null) particle.tick(input);
-		else
-			if(wave != null) wave.tick(input);
+		// Otherwise treat everything normally
+		else {
+			if (input.buttonStack.shouldSwitch()) {
+				controllingParticle = !controllingParticle;
+			}
+			
+			if (controllingParticle)
+				if(particle != null) particle.tick(input);
+			else
+				if(wave != null) wave.tick(input);
+		}
 	}
 
 	public void dispose() {
