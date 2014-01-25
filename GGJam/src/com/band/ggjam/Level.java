@@ -128,6 +128,10 @@ public class Level {
 	}
 
 	public void tick(Input input) {
+		if (input.buttonStack.shouldSwitch()) {
+			controllingParticle = !controllingParticle;
+		}
+		
 		if (controllingParticle) {
 			activeParticle.tick(input);
 		} else {
