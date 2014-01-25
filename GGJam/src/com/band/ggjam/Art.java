@@ -10,15 +10,13 @@ public class Art {
 	
 	public static TextureRegion[][] particle;
 	public static TextureRegion[][] wave;
-	public static TextureRegion[][] tiles;
 	public static byte[][] mainCharacterMap;
 	
 	public static boolean loaded = false;
 	
 	public static void load () {
-		particle = split("img/DAHT.png", 16, 16);
+		particle = split("img/DAHT.png", 32, 32);
 		wave = split("img/WAIV.png", 16, 16);
-		tiles = split("img/tiles.png", 16, 16);
 		
 		loaded = true;
 	}

@@ -19,7 +19,7 @@ public class Entity extends Sprite {
 	 */
 	public Entity(int x, int y, TextureRegion texture, Level level) {
 		super(texture);
-		//setSize(getWidth() / GGJam.TILE_SIZE, getHeight() / GGJam.TILE_SIZE);
+//		setSize(getWidth() / GGJam.TILE_SIZE, getHeight() / GGJam.TILE_SIZE);
 		setPosition(x, y);
 		this.x = x;
 		this.y = y;
@@ -53,13 +53,28 @@ public class Entity extends Sprite {
 	 * @param dy
 	 */
 	public void tryMove(float dx, float dy) {
-		if(currentLevel != null) {
-			if(currentLevel.canMove(x + dx, y + dy, getWidth(), getHeight())) {
-				x += dx;
-				y += dy;
-				setPosition(x,y);
-			}
+		float w = getWidth();
+		float h = getHeight();
+		
+
+		// First, try to move horizontally
+		if (currentLevel.canMove(x + dx, y, w, h)) {
+			x += dx;
+		} 
+		else {
+			// Hit a wall
+			hitWall(dx, dy);
 		}
+		
+
+		// Next, move vertically
+		if (currentLevel.canMove(x, y + dy, w, h)) {
+			y += dy;
+		} else {
+			// Hit the wall
+			hitWall(dx, dy);
+		}
+		setPosition(x, y);
 	}
 
 	/**
@@ -70,7 +85,14 @@ public class Entity extends Sprite {
 	 * @param dy
 	 */
 	public void hitWall(float dx, float dy) {
-		
+		if(dx == 0 && dy == 0) return;
+		x += dx;
+		y += dy;
+
+		while(!currentLevel.canMove(x, y, getWidth(), getHeight())) {
+			x -= dx * 0.01;
+			y -= dy * 0.01;
+		}
 	}
 
 	public Level getCurrentLevel() {

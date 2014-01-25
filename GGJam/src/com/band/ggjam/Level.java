@@ -1,10 +1,12 @@
 package com.band.ggjam;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -25,6 +27,7 @@ public class Level {
 	
 	private Particle particle;
 	private Wave wave;
+	private int[] goal;
 	
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle;
@@ -33,41 +36,43 @@ public class Level {
 	
 	private SpriteBatch batch;
 	
-	public Level(String mapName, int dimX, int dimy, GameState gameState) {
-		this.gameState = gameState;
-
-		camera = new OrthographicCamera(GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
-		camera.setToOrtho(false, GGJam.GAME_WIDTH / (GGJam.TILE_SIZE * GGJam.DISPLAY_TILE_SCALE), GGJam.GAME_HEIGHT / (GGJam.TILE_SIZE * GGJam.DISPLAY_TILE_SCALE));
-		
+	public Level(String mapName, GameState gameState) {
 		map = new TmxMapLoader().load("levels/"+mapName);
-
-		// TODO: get the correct wave / particle position from the map
-		wave = new Wave(5, 5, this);
-		particle = new Particle(20, 20, this);
-		controllingParticle = true;
 		
-//		placeCharacters();
-		
-		// Set size
 		width = (Integer) map.getProperties().get("width");
 		height = (Integer) map.getProperties().get("height");
 		
+		this.gameState = gameState;
+
+		camera = new OrthographicCamera(width * GGJam.TILE_SIZE, height * GGJam.TILE_SIZE);
+		camera.setToOrtho(false, width / GGJam.DISPLAY_TILE_SCALE, height / GGJam.DISPLAY_TILE_SCALE);
+
 		// Create renderer
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / (GGJam.TILE_SIZE * GGJam.MULTIPLIER_FOR_GOOD_CALCULATIONS));
 		renderer.setView(camera);
 		
-		batch = renderer.getSpriteBatch();
-		
 		camera.update();
 		
+		// Get wall objects from layer #1
 		polygonCollisions = new ArrayList<MapObject>();
 		for(MapObject object : map.getLayers().get(1).getObjects()) {
-			System.out.println(object);
 			if(object instanceof PolygonMapObject) {
 				polygonCollisions.add(object);
 			}
 		}
-		batch = new SpriteBatch(100);
+		
+		// Get all other objects from layer #2
+		for(MapObject object : map.getLayers().get(2).getObjects()) {
+			MapProperties properties = object.getProperties();
+			if(object.getName().equals("Goal")) {
+				goal = new int[] { (Integer) properties.get("x"), (Integer) properties.get("y") };
+			}
+			else if(object.getName().equals("Particle")) {
+				particle = new Particle((Integer) properties.get("x"), (Integer) properties.get("y"), this);
+			}
+		}
+		
+		batch = new SpriteBatch(1);
 		
 		controllingParticle = true;
 	}
@@ -104,8 +109,8 @@ public class Level {
 		renderer.render();
 		
 		batch.begin();
-		particle.draw(batch);
-		wave.draw(batch);
+		if(particle != null) particle.draw(batch);
+		if(wave != null) wave.draw(batch);
 		batch.end();
 	}
 
@@ -114,11 +119,10 @@ public class Level {
 			controllingParticle = !controllingParticle;
 		}
 		
-		if (controllingParticle) {
-			particle.tick(input);
-		} else {
-			wave.tick(input);
-		}
+		if (controllingParticle)
+			if(particle != null) particle.tick(input);
+		else
+			if(wave != null) wave.tick(input);
 	}
 
 	public void dispose() {
