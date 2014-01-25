@@ -10,7 +10,7 @@ public class InGameState extends GameState {
 		camera = new OrthographicCamera(GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
 		spriteBatch = new SpriteBatch(100);
 		
-		currentLevel = new Level("tutorial.tmx", this);
+		currentLevel = new Level("tutorial", this);
 	}
 	
 	@Override
@@ -28,5 +28,11 @@ public class InGameState extends GameState {
 		currentLevel.dispose();
 	}
 
+	public void beatLevel(String nextLevel) {
+		if(nextLevel != null) {
+			currentLevel.dispose();
+			currentLevel = new Level(nextLevel, this);
+		}
+	}
 }
 
