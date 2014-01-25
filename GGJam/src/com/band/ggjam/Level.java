@@ -47,7 +47,11 @@ public class Level {
 	
 	private SpriteBatch batch;
 	
+	private ArrayList<Entity> entities;
+	
 	public Level(String mapName, GameState gameState) {
+		entities = new ArrayList<Entity>();
+		
 		map = new TmxMapLoader().load("levels/"+mapName+".tmx");
 		MapProperties prop = map.getProperties();
 		nextLevel = (String) prop.get("nextLevel");
@@ -93,6 +97,9 @@ public class Level {
 				wave = new Wave((Integer) properties.get("x"), (Integer) properties.get("y"), this);
 				lastTail = new Point(wave.tileX, wave.tileY);
 			}
+			else if(object.getName().equals("Emitter")) {
+				add(new Emitter((Integer) properties.get("x"), (Integer) properties.get("y"), this));
+			}
 			else if(tailMatcher.find()) {
 				newTails.add(new WaveTail( (Integer) properties.get("x"), (Integer) properties.get("y"), 
 						this, Integer.parseInt(tailMatcher.group(1))));
@@ -122,7 +129,7 @@ public class Level {
 	 * @param y
 	 * @return CAN WE MOVE THERE OR NOT
 	 */
-	public boolean canMove(float x, float y, float w, float h) {
+	public boolean canMove(Entity e, float x, float y, float w, float h) {
 		float x0 = (x    );// * GGJam.TILE_SIZE;
 		float y0 = (y    );// * GGJam.TILE_SIZE;
 		float x1 = (x + w);// * GGJam.TILE_SIZE;
@@ -139,9 +146,24 @@ public class Level {
 			}
 		}
 
-		Rectangle polyToCheck = ((RectangleMapObject) goal).getRectangle();
-		if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1))
-			beatLevel = true;
+		if(e instanceof Particle) {
+			Rectangle polyToCheck = ((RectangleMapObject) goal).getRectangle();
+			if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1))
+				beatLevel = true;
+			
+		}
+		else
+			if(!particle.canPass(e) && particle.collide(x, y, w, h))
+				return false;
+
+		if(!(e instanceof Wave) && !wave.canPass(e) && wave.collide(x, y, w, h))
+			return false;
+		
+		
+		for(Entity other : entities) {
+			if(!e.canPass(other) && e.collide(x, y, w, h))
+				return false;
+		}
 		
 		return true;
 	}
@@ -153,9 +175,11 @@ public class Level {
 		
 		batch.begin();
 		if(particle != null) particle.draw(batch);
-		if(wave != null) {
-			wave.draw(batch);
-		}
+		if(wave != null) wave.draw(batch);
+		
+		for(Entity e : entities)
+			e.draw(batch);
+
 		batch.end();
 	}
 
@@ -183,9 +207,20 @@ public class Level {
 			} else {
 				if(wave != null) wave.tick(input);
 			}
+			
+			for(int i = 0; i < entities.size(); i ++) {
+				Entity e = entities.get(i);
+				e.tick();
+				if(e.dead)
+					entities.remove(i--);
+			}
 		}
 	}
 
 	public void dispose() {
+	}
+
+	public void add(Entity entity) {
+		entities.add(entity);
 	}
 }

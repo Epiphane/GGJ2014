@@ -16,5 +16,6 @@
  <objectgroup name="Objects" width="24" height="16">
   <object name="Goal" x="640" y="96" width="32" height="32"/>
   <object name="Particle" x="96" y="384" width="32" height="32"/>
+  <object name="Emitter" x="320" y="288" width="32" height="32"/>
  </objectgroup>
 </map>
