@@ -4,8 +4,6 @@ import java.util.logging.Level;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapProperties;
 
 public class Entity extends Sprite {
 
@@ -23,7 +21,8 @@ public class Entity extends Sprite {
 	 */
 	public Entity(int x, int y, TextureRegion texture) {
 		super(texture);
-		setSize(getWidth() / GGJam.TILE_SIZE, getHeight() / GGJam.TILE_SIZE);
+		//setSize(getWidth() / GGJam.TILE_SIZE, getHeight() / GGJam.TILE_SIZE);
+		setPosition(x, y);
 		this.x = x;
 		this.y = y;
 	}
@@ -41,8 +40,7 @@ public class Entity extends Sprite {
 	 * AI, walking off, and the like.
 	 */
 	public void tick() {
-		if (currentLevel == null) // Do nothing if we're not in a world
-			return;
+		setPosition(x, y);
 	}
 
 	/**
