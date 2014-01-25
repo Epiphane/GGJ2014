@@ -11,9 +11,12 @@ public class Point {
 	/**
 	 * Translates the current point by the coordinates of the input point
 	 * @param translateBy A point that will be added to the current point
+	 * @return 
 	 */
-	public void addPoint(Point translateBy) {
+	public Point addPoint(Point translateBy) {
 		x += translateBy.x;
 		y += translateBy.y;
+		
+		return this;
 	}
 }

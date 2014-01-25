@@ -17,7 +17,8 @@ public class Wave extends Entity {
 	
 	private ArrayList<WaveTail> tails;
 	
-	private int tileX, tileY;
+	int tileX, tileY;
+	
 	private int dx, dy;
 	
 	public Wave(int x, int y, Level level) {
@@ -60,9 +61,10 @@ public class Wave extends Entity {
 				dy = offset.y;
 
 				// Create a new WaveTail at our old location
-				tails.add(new WaveTail(tileX, tileY, currentLevel, offset));
+				tails.add(new WaveTail((int) x, (int) y, currentLevel, offset));
 				
 				// Tell the WaveTail at the end to kill itself
+				System.out.println("moving lol");
 				tails.get(0).die();
 				
 				tileX += dx;
@@ -78,7 +80,6 @@ public class Wave extends Entity {
 	public void draw(SpriteBatch batch) {
 		super.draw(batch);
 		for (WaveTail tail : tails) {
-			System.out.println("tail: " + tail.x + ", " + tail.y);
 			tail.draw(batch);
 		}
 	}

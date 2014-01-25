@@ -16,5 +16,19 @@
  <objectgroup name="Objects" width="24" height="16">
   <object name="Goal" x="640" y="96" width="32" height="32"/>
   <object name="Particle" x="96" y="384" width="32" height="32"/>
+  <object name="Wave" x="288" y="96" width="32" height="32"/>
+  <object name="t0" type="WaveTail" x="256" y="96" width="32" height="32">
+   <properties>
+    <property name="" value=""/>
+   </properties>
+  </object>
+  <object name="t1" type="WaveTail" x="224" y="96" width="32" height="32"/>
+  <object name="t2" type="WaveTail" x="192" y="96" width="32" height="32"/>
+  <object name="t3" type="WaveTail" x="160" y="96" width="32" height="32"/>
+  <object name="t4" type="WaveTail" x="128" y="96" width="32" height="32"/>
+  <object name="t5" type="WaveTail" x="96" y="96" width="32" height="32"/>
+  <object name="t6" type="WaveTail" x="96" y="128" width="32" height="32"/>
+  <object name="t7" type="WaveTail" x="96" y="160" width="32" height="32"/>
+  <object name="t8" type="WaveTail" x="96" y="192" width="32" height="32"/>
  </objectgroup>
 </map>
