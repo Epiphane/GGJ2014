@@ -1,6 +1,7 @@
 package com.band.ggjam;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,6 +17,7 @@ public class Wave extends Entity {
 	private TextureRegion[][] spriteSheet;
 	
 	public ArrayList<WaveTail> tails;
+	private Stack<Integer> lastTwoDirections;
 	
 	int tileX, tileY;
 	
@@ -44,10 +46,16 @@ public class Wave extends Entity {
 			
 			tickTails();
 			
-			if (dx < 0) {
+			if (dx < 0)
 				this.setRegion(Art.wave[(moveTicks + 1) % 4][0]);
-			} else if (dx > 0)
+			else if (dx > 0)
 				this.setRegion(Art.wave[3 - (moveTicks) % 4][0]);
+			else if (dy < 0)
+				this.setRegion(Art.wave[(moveTicks + 1) % 4][0]);
+			else if (dy > 0)
+				this.setRegion(Art.wave[3 - (moveTicks) % 4][0]);
+			
+			
 		} else {
 			Point offset = input.buttonStack.walkDirection();
 			this.setRegion(Art.wave[0][0]);
@@ -56,7 +64,6 @@ public class Wave extends Entity {
 				dy = offset.y;
 				
 				if(currentLevel.canMove(this, x + WAVE_SPEED * dx, y + WAVE_SPEED * dy, getWidth() - 1, getHeight() - 1)) {
-
 					// Create a new WaveTail at our old location
 					tails.add(new WaveTail((int) x, (int) y, currentLevel, offset));
 					
@@ -68,6 +75,18 @@ public class Wave extends Entity {
 					
 					moving = true;
 					moveTicks = MOVE_TICKS;
+					
+					this.setRotation(Utility.dirToDegree(offset));
+			
+					if (dx == 1) {
+						this.setRotation(0);
+					} else if (dx == -1) {
+						
+					} else if (dy == 1) {
+						this.setRotation(90);
+					} else if (dy == -1) {
+						
+					}
 				}
 			}
 		}
@@ -83,11 +102,10 @@ public class Wave extends Entity {
 	
 	@Override
 	public void draw(SpriteBatch batch) {
-		super.draw(batch);
-		
 		for (WaveTail tail : tails) {
 			tail.draw(batch);
 		}
+		super.draw(batch);
 	}
 	
 	public boolean collide(float x, float y, float w, float h) {
