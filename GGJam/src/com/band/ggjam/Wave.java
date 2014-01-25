@@ -48,29 +48,6 @@ public class Wave extends Entity {
 				this.setRegion(Art.wave[(moveTicks + 1) % 4][0]);
 			} else if (dx > 0)
 				this.setRegion(Art.wave[3 - (moveTicks) % 4][0]);
-			
-//			float w = getWidth();
-//			float h = getHeight();
-//			
-//			// First, try to move horizontally
-//			if (currentLevel.canMove(this, x + WAVE_SPEED * dx, y, w, h)) {
-//				x += WAVE_SPEED * dx;
-//				tickTails();
-//			} 
-//			else {
-//				// Hit a wall
-//				hitWall(WAVE_SPEED * dx, WAVE_SPEED * dy);
-//			}
-//			
-//
-//			// Next, move vertically
-//			if (currentLevel.canMove(this, x, y + WAVE_SPEED * dy, w, h)) {
-//				y += WAVE_SPEED * dy;
-//				tickTails();
-//			} else {
-//				// Hit the wall
-//				hitWall(WAVE_SPEED * dx, WAVE_SPEED * dy);
-//			}
 		} else {
 			Point offset = input.buttonStack.walkDirection();
 			this.setRegion(Art.wave[0][0]);
@@ -119,5 +96,9 @@ public class Wave extends Entity {
 				return true;
 		}
 		return super.collide(x, y, w, h);
+	}
+	
+	public boolean canPass(Entity other) {
+		return (other instanceof Laser);
 	}
 }
