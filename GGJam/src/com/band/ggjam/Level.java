@@ -24,7 +24,7 @@ public class Level {
 	private ArrayList<MapObject> polygonCollisions;
 	private OrthogonalTiledMapRenderer renderer;
 	
-	/** 
+	/**
 	 * Width and height of the level in tiles
 	 */
 	private int width, height;
@@ -38,12 +38,19 @@ public class Level {
 	
 	private boolean beatLevel;
 	
+	/**
+	 * Contains the filename of the next level, or null if no level afterwards
+	 */
+	private String nextLevel;
+	
 	private GameState gameState;
 	
 	private SpriteBatch batch;
 	
 	public Level(String mapName, GameState gameState) {
-		map = new TmxMapLoader().load("levels/"+mapName);
+		map = new TmxMapLoader().load("levels/"+mapName+".tmx");
+		MapProperties prop = map.getProperties();
+		nextLevel = (String) prop.get("nextLevel");
 		
 		width = (Integer) map.getProperties().get("width");
 		height = (Integer) map.getProperties().get("height");
@@ -158,7 +165,7 @@ public class Level {
 			particle.setPosition(particle.x, particle.y);
 			
 			if(Math.abs(dx) < 0.01f && Math.abs(dy) < 0.01f)
-				gameState.setScreen(new BeatLevelState(this));
+				gameState.beatLevel(nextLevel);
 		}
 		// Otherwise treat everything normally
 		else {

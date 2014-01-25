@@ -81,4 +81,8 @@ public abstract class GameState {
 	}
 
 	public abstract void dispose();
+
+	public void beatLevel(String nextLevel) {
+		System.out.println("You should never ever get this message. Like, ever. EVER.");
+	}
 }
