@@ -1,10 +1,12 @@
 package com.band.ggjam;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -23,11 +25,10 @@ public class Level {
 	 */
 	private int width, height;
 	
-	private ArrayList<Particle> particles;
-	private ArrayList<Wave> waves;
+	private Particle particle;
+	private Wave wave;
+	private int[] goal;
 	
-	private Particle activeParticle;
-	private Wave activeWave;
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle;
 	
@@ -60,30 +61,20 @@ public class Level {
 			}
 		}
 		
+		// Get all other objects from layer #2
+		for(MapObject object : map.getLayers().get(2).getObjects()) {
+			MapProperties properties = object.getProperties();
+			if(object.getName().equals("Goal")) {
+				goal = new int[] { (Integer) properties.get("x"), (Integer) properties.get("y") };
+			}
+			else if(object.getName().equals("Particle")) {
+				particle = new Particle((Integer) properties.get("x"), (Integer) properties.get("y"), this);
+			}
+		}
+		
 		batch = new SpriteBatch(1);
 		
-		particles = new ArrayList<Particle>();
-		waves = new ArrayList<Wave>();
-		
 		controllingParticle = true;
-	}
-	
-	public void addWave(int x, int y) {
-		waves.add(new Wave(x, y, this));
-	}
-	
-	public void addParticle(int x, int y) {
-		particles.add(new Particle(x,y, this));
-	}
-	
-	public void setActiveParticle(int particleNum) {
-		activeParticle = particles.get(particleNum);
-		controllingParticle = true;
-	}
-	
-	public void setActiveWave(int waveNum) {
-		activeWave = waves.get(waveNum);
-		controllingParticle = false;
 	}
 	
 	/**
@@ -118,8 +109,8 @@ public class Level {
 		renderer.render();
 		
 		batch.begin();
-		activeParticle.draw(batch);
-		activeWave.draw(batch);
+		if(particle != null) particle.draw(batch);
+		if(wave != null) wave.draw(batch);
 		batch.end();
 	}
 
@@ -128,11 +119,10 @@ public class Level {
 			controllingParticle = !controllingParticle;
 		}
 		
-		if (controllingParticle) {
-			activeParticle.tick(input);
-		} else {
-			activeWave.tick(input);
-		}
+		if (controllingParticle)
+			if(particle != null) particle.tick(input);
+		else
+			if(wave != null) wave.tick(input);
 	}
 
 	public void dispose() {

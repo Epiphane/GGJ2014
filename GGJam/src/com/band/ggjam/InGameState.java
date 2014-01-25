@@ -11,13 +11,6 @@ public class InGameState extends GameState {
 		spriteBatch = new SpriteBatch(100);
 		
 		currentLevel = new Level("tutorial.tmx", this);
-		
-		// TODO: un-hard-code this
-		currentLevel.addWave(10, 10);
-		currentLevel.setActiveWave(0);
-		
-		currentLevel.addParticle(100, 94);
-		currentLevel.setActiveParticle(0);
 	}
 	
 	@Override
