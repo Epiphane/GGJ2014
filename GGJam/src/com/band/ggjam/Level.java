@@ -3,13 +3,13 @@ package com.band.ggjam;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Polygon;
 
 
 public class Level {
@@ -42,8 +42,8 @@ public class Level {
 		map = new TmxMapLoader().load("levels/"+mapName);
 
 		// TODO: get the correct wave / particle position from the map
-		wave = new Wave(5, 5);
-		particle = new Particle(20, 20);
+		wave = new Wave(5, 5, this);
+		particle = new Particle(20, 20, this);
 		controllingParticle = true;
 		
 //		placeCharacters();
@@ -62,12 +62,14 @@ public class Level {
 		
 		polygonCollisions = new ArrayList<MapObject>();
 		for(MapObject object : map.getLayers().get(1).getObjects()) {
+			System.out.println(object);
 			if(object instanceof PolygonMapObject) {
 				polygonCollisions.add(object);
 			}
 		}
 		batch = new SpriteBatch(100);
 		
+		controllingParticle = true;
 	}
 	
 	/**
@@ -76,9 +78,24 @@ public class Level {
 	 * @param y
 	 * @return CAN WE MOVE THERE OR NOT
 	 */
-	public boolean canMove(int x, int y) {
+	public boolean canMove(float x, float y, float w, float h) {
+		float x0 = (x    );// * GGJam.TILE_SIZE;
+		float y0 = (y    );// * GGJam.TILE_SIZE;
+		float x1 = (x + w);// * GGJam.TILE_SIZE;
+		float y1 = (y + h);// * GGJam.TILE_SIZE;
+		
+
+//		System.out.println("Checking ["+x0+","+y0+","+x1+","+y1+"]");
+		
+		for(MapObject objectToCheck : polygonCollisions) {
+			// Check if our 4 corners intersect with any platform polygons
+			Polygon polyToCheck = ((PolygonMapObject) objectToCheck).getPolygon();
+			if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1)) {
+				return false;
+			}
+		}
+		
 		return true;
-		//return tiles[x][y] == 0;
 	}
 	
 	public void render() {

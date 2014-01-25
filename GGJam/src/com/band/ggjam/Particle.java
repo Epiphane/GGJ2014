@@ -7,8 +7,8 @@ public class Particle extends Entity {
 	
 	private TextureRegion[][] spriteSheet;
 
-	public Particle(int x, int y) {
-		super(x, y, Art.particle[0][0]);
+	public Particle(int x, int y, Level level) {
+		super(x, y, Art.particle[0][0], level);
 		spriteSheet = Art.particle;
 	}
 
@@ -17,7 +17,6 @@ public class Particle extends Entity {
 
 		Point offset = input.buttonStack.airDirection();
 
-		x += offset.x * PARTICLE_SPEED;
-		y += offset.y * PARTICLE_SPEED;
+		tryMove(offset.x * PARTICLE_SPEED, offset.y * PARTICLE_SPEED);
 	}
 }
