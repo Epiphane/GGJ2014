@@ -15,7 +15,7 @@ public class Particle extends Entity {
 	public void tick(Input input) {
 		super.tick();
 
-		Point offset = input.buttonStack.airDirection();
+		Point offset = input.buttonStack.walkDirection();
 
 		tryMove(offset.x * PARTICLE_SPEED, offset.y * PARTICLE_SPEED);
 	}

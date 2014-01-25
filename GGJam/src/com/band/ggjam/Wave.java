@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Wave extends Entity {
-	public static final int WAVE_SPEED = 2;
+	public static final int WAVE_SPEED = 4;
 	
 	/** How long in ticks it takes to move one square for the Wave */
 	public static final int MOVE_TICKS = (int) GGJam.TILE_SIZE / WAVE_SPEED;
@@ -15,26 +15,22 @@ public class Wave extends Entity {
 	
 	private TextureRegion[][] spriteSheet;
 	
-	private ArrayList<WaveTail> tails;
+	public ArrayList<WaveTail> tails;
 	
 	int tileX, tileY;
 	
 	private int dx, dy;
 	
 	public Wave(int x, int y, Level level) {
-		super((int) GGJam.TILE_SIZE * x, (int) GGJam.TILE_SIZE * y, Art.wave[0][0], level);
-		tileX = x;
-		tileY = y;
+		super(x, y, Art.wave[0][0], level);
+		tileX = (int) (x / GGJam.TILE_SIZE);
+		tileY = (int) (y / GGJam.TILE_SIZE);
 
 		spriteSheet = Art.wave;
 		tails = new ArrayList<WaveTail>();
 		
 		// Initialize the tail facing to the right ->
 		Point offset = Utility.offsetFromDirection(Input.LEFT);
-		tails.add(new WaveTail(tileX + 4, tileY, level, offset));
-		tails.add(new WaveTail(tileX + 3, tileY, level, offset));
-		tails.add(new WaveTail(tileX + 2, tileY, level, offset));
-		tails.add(new WaveTail(tileX + 1, tileY, level, offset));
 	}
 	
 	public void tick(Input input) {
@@ -64,7 +60,6 @@ public class Wave extends Entity {
 				tails.add(new WaveTail((int) x, (int) y, currentLevel, offset));
 				
 				// Tell the WaveTail at the end to kill itself
-				System.out.println("moving lol");
 				tails.get(0).die();
 				
 				tileX += dx;
@@ -72,6 +67,7 @@ public class Wave extends Entity {
 				
 				moving = true;
 				moveTicks = MOVE_TICKS;
+				System.out.println("START Moving");
 			}
 		}
 	}
@@ -79,6 +75,7 @@ public class Wave extends Entity {
 	@Override
 	public void draw(SpriteBatch batch) {
 		super.draw(batch);
+		
 		for (WaveTail tail : tails) {
 			tail.draw(batch);
 		}
