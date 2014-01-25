@@ -6,5 +6,11 @@ public class Wave extends Entity {
 		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void tick(Input input) {
+		super.tick();
+		
+		// TODO: anything, really
+	}
 
 }

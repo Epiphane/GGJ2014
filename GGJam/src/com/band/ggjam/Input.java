@@ -95,6 +95,25 @@ public class Input implements InputProcessor {
 			
 			return 0;
 		}
+		
+		/**
+		 * Looks for the most recent direction then SWALLOWS ITS SOOOUL.
+		 * So it can't be used again, that is. Useful for the current debug
+		 * "turn based" movement
+		 * @return Which direction it would be... wise... to go
+		 */
+		public int consumeDirection() {
+			Node cursor = currentButton;
+			while (cursor != null) {
+				if (cursor.button == UP || cursor.button == LEFT ||
+						cursor.button == DOWN || cursor.button == RIGHT) {
+					delete(cursor.button);
+					return cursor.button;
+				}	
+				cursor = cursor.next;
+			}
+			return 0;
+		}
 	}
 	
 	// Static key values

@@ -1,8 +1,17 @@
 package com.band.ggjam;
 
+import java.util.ArrayList;
+
 
 public class Level {
-	private Entity particle, wave;
+	private ArrayList<Particle> particles;
+	private ArrayList<Wave> waves;
+	
+	private Particle activeParticle;
+	private Wave activeWave;
+	/** You're either controlling a particle, or a wave.  This tells you which. */
+	public boolean controllingParticle;
+	
 	private GameState gameState;
 
 	public int[][] tiles = {
@@ -15,6 +24,23 @@ public class Level {
 	
 	public Level(int dimX, int dimy, GameState gameState) {
 		this.gameState = gameState;
+		particles = new ArrayList<Particle>();
+		waves = new ArrayList<Wave>();
+		
+		controllingParticle = true;
+	}
+	
+	public void addWave(int x, int y) {
+		waves.add(new Wave(x, y));
+	}
+	
+	public void addParticle(int x, int y) {
+		particles.add(new Particle(x,y));
+	}
+	
+	public void setActiveParticle(int particleNum) {
+		activeParticle = particles.get(particleNum);
+		controllingParticle = true;
 	}
 	
 	/**
@@ -36,7 +62,11 @@ public class Level {
 	}
 
 	public void tick(Input input) {
-		
+		if (controllingParticle) {
+			activeParticle.tick(input);
+		} else {
+			activeWave.tick(input);
+		}
 	}
 
 	public void dispose() {
