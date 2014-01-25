@@ -127,38 +127,22 @@ public class Input implements InputProcessor {
 			return null;
 		}
 		
-		/** Should I walk left, right, or sit perfectly still, contemplating
-		 * the meaninglessness of existence? */
-		public int walkDirection() {
-			Node cursor = currentButton;
-			while(cursor != null) {
-				if(cursor.button == LEFT)
-					return -1;
-				if(cursor.button == RIGHT)
-					return 1;
-				cursor = cursor.next;
-			}
-			
-			return NO_DIRECTION;
-		}
-		
 		/**
 		 * Looks for the most recent direction then SWALLOWS ITS SOOOUL.
 		 * So it can't be used again, that is. Useful for the current debug
 		 * "turn based" movement
 		 * @return Which direction it would be... wise... to go
 		 */
-		public int consumeDirection() {
+		public Point walkDirection() {
 			Node cursor = currentButton;
 			while (cursor != null) {
 				if (cursor.button == UP || cursor.button == LEFT ||
 						cursor.button == DOWN || cursor.button == RIGHT) {
-					delete(cursor.button);
-					return cursor.button;
+					return Utility.offsetFromDirection(cursor.button);
 				}	
 				cursor = cursor.next;
 			}
-			return NO_DIRECTION;
+			return Utility.offsetFromDirection(NO_DIRECTION);
 		}
 	}
 	

@@ -8,8 +8,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "GGJam";
 		cfg.useGL20 = false;
-		cfg.width = 768;
-		cfg.height = 512;
+		cfg.width = 480;
+		cfg.height = 320;
 		
 		new LwjglApplication(new GGJam(), cfg);
 	}
