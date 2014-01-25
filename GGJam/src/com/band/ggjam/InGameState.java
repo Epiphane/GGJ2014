@@ -10,13 +10,13 @@ public class InGameState extends GameState {
 		camera = new OrthographicCamera(GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
 		spriteBatch = new SpriteBatch(100);
 		
-		currentLevel = new Level("level1.tmx", 40, 20, this);
+		currentLevel = new Level("tutorial.tmx", this);
 		
 		// TODO: un-hard-code this
 		currentLevel.addWave(10, 10);
 		currentLevel.setActiveWave(0);
 		
-		currentLevel.addParticle(50, 50);
+		currentLevel.addParticle(100, 94);
 		currentLevel.setActiveParticle(0);
 	}
 	

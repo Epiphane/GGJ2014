@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="48" height="32" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="Basic" tilewidth="16" tileheight="16">
-  <image source="../img/tiles.png" width="32" height="16"/>
+  <image source="../img/tiles.png" width="64" height="16"/>
  </tileset>
  <layer name="TIles" width="48" height="32">
   <data encoding="base64" compression="zlib">
-   eJztlUEOgDAIBLH/f7RX48FQCmXW9MBVZrZrGGY2xOcSnb/yqzh95a/wNh5GsoM3Y6rDTEeIfYowkRyimVIcVjpB6FMGQ6dDVoZdDpkd6OhTxc6dDlWZ7XqL6j3q33/vqeiq8j/XeYOybo/yDSXwr7CQ+CNMRP4nmzK/x4HOr57/4WfP4WfwK88NQe8GwA==
+   eJzt10EKACAIRFGr+9+5C2gYFI3xF7MsHiNCdTPrxdMKxHPix3/a/3oXo73c8b/u2nPgx48fP378+PHjx6/qX73D1f1ehuA8dvzRXG79tU73H52/3W3Wn+lE2Z+5E7+Ov+L+KuYXf+VMrdYHRw==
   </data>
  </layer>
  <objectgroup name="Walls" width="48" height="32">
@@ -14,7 +14,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Spawns" width="48" height="32">
-  <object name="Particle" x="176" y="384">
+  <object name="Particle" x="48" y="448">
    <polygon points="0,0 0,16 16,16 16,0"/>
   </object>
  </objectgroup>

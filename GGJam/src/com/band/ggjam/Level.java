@@ -35,36 +35,32 @@ public class Level {
 	
 	private SpriteBatch batch;
 	
-	public Level(String mapName, int dimX, int dimy, GameState gameState) {
-		this.gameState = gameState;
-
-		camera = new OrthographicCamera(GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
-		camera.setToOrtho(false, GGJam.GAME_WIDTH / (GGJam.TILE_SIZE * GGJam.DISPLAY_TILE_SCALE), GGJam.GAME_HEIGHT / (GGJam.TILE_SIZE * GGJam.DISPLAY_TILE_SCALE));
-		
+	public Level(String mapName, GameState gameState) {
 		map = new TmxMapLoader().load("levels/"+mapName);
-
-//		placeCharacters();
 		
-		// Set size
 		width = (Integer) map.getProperties().get("width");
 		height = (Integer) map.getProperties().get("height");
 		
+		this.gameState = gameState;
+
+		camera = new OrthographicCamera(width * GGJam.TILE_SIZE, height * GGJam.TILE_SIZE);
+		camera.setToOrtho(false, width / GGJam.DISPLAY_TILE_SCALE, height / GGJam.DISPLAY_TILE_SCALE);
+
 		// Create renderer
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / (GGJam.TILE_SIZE * GGJam.MULTIPLIER_FOR_GOOD_CALCULATIONS));
 		renderer.setView(camera);
 		
-		batch = renderer.getSpriteBatch();
-		
 		camera.update();
 		
+		// Get wall objects from layer #1
 		polygonCollisions = new ArrayList<MapObject>();
 		for(MapObject object : map.getLayers().get(1).getObjects()) {
-			System.out.println(object);
 			if(object instanceof PolygonMapObject) {
 				polygonCollisions.add(object);
 			}
 		}
-		batch = new SpriteBatch(100);
+		
+		batch = new SpriteBatch(1);
 		
 		particles = new ArrayList<Particle>();
 		waves = new ArrayList<Wave>();
