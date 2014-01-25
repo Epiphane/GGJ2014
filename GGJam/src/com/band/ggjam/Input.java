@@ -51,6 +51,42 @@ public class Input implements InputProcessor {
 			return (currentButton == null) ? -1 : currentButton.button;
 		}
 		
+		/** Returns the "dominant direction." That is, the current direction the user would expect
+		 * to go if they pressed "dash" while holding the directions they are now. If the user is pressing
+		 * no direction keys, default to DEFAULT_DIRECTION (below).  If the user is pressing two to four
+		 * opposing directions, use the one they pressed LAST. */
+		public Point airDirection() {
+			Node cursor = currentButton;
+			
+			Point result = new Point(0, 0);
+			Point lastPressed = null;
+			
+			while(cursor != null) {
+				if(cursor.button <= LEFT) {
+					Point pressedDir = Utility.offsetFromDirection(cursor.button);
+					result.addPoint(pressedDir);
+					
+					if(lastPressed == null)
+						lastPressed = pressedDir;
+				}
+			
+				cursor = cursor.next;
+			}
+			
+			// There was a tie! Either no buttons are being pressed, or 2-4 are conflicting.
+			if(result.equals(new Point(0, 0))) {
+				// No buttons
+				if(lastPressed == null)
+					return Utility.offsetFromDirection(DEFAULT_DIRECTION);
+				
+				// 2-4 buttons
+				return lastPressed;
+			}
+			
+			// Everything is normal. Do not worry.
+			return result;
+		}
+		
 		/** @return True if there's an unused UP in the stack, false otherwise */
 		public boolean shouldJump() {
 			Node upNode = find(UP);
@@ -93,7 +129,26 @@ public class Input implements InputProcessor {
 				cursor = cursor.next;
 			}
 			
-			return 0;
+			return NO_DIRECTION;
+		}
+		
+		/**
+		 * Looks for the most recent direction then SWALLOWS ITS SOOOUL.
+		 * So it can't be used again, that is. Useful for the current debug
+		 * "turn based" movement
+		 * @return Which direction it would be... wise... to go
+		 */
+		public int consumeDirection() {
+			Node cursor = currentButton;
+			while (cursor != null) {
+				if (cursor.button == UP || cursor.button == LEFT ||
+						cursor.button == DOWN || cursor.button == RIGHT) {
+					delete(cursor.button);
+					return cursor.button;
+				}	
+				cursor = cursor.next;
+			}
+			return NO_DIRECTION;
 		}
 	}
 	
@@ -104,6 +159,7 @@ public class Input implements InputProcessor {
 	//  6 X 2
 	//  5 4 3
 	//
+	public static final int NO_DIRECTION = -1;
 	public static final int UP = 0;
 	public static final int RIGHT = 2;
 	public static final int DOWN = 4;
