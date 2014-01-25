@@ -47,7 +47,11 @@ public class Level {
 	
 	private SpriteBatch batch;
 	
+	private ArrayList<Entity> entities;
+	
 	public Level(String mapName, GameState gameState) {
+		entities = new ArrayList<Entity>();
+		
 		map = new TmxMapLoader().load("levels/"+mapName+".tmx");
 		MapProperties prop = map.getProperties();
 		nextLevel = (String) prop.get("nextLevel");
@@ -92,6 +96,9 @@ public class Level {
 			else if(object.getName().equals("Wave")) {
 				wave = new Wave((Integer) properties.get("x"), (Integer) properties.get("y"), this);
 				lastTail = new Point(wave.tileX, wave.tileY);
+			}
+			else if(object.getName().equals("Emitter")) {
+				add(new Emitter((Integer) properties.get("x"), (Integer) properties.get("y"), this));
 			}
 			else if(tailMatcher.find()) {
 				newTails.add(new WaveTail( (Integer) properties.get("x"), (Integer) properties.get("y"), 
@@ -151,6 +158,9 @@ public class Level {
 		batch.begin();
 		if(particle != null) particle.draw(batch);
 		if(wave != null) wave.draw(batch);
+		
+		for(Entity e : entities)
+			e.draw(batch);
 		batch.end();
 	}
 
@@ -177,9 +187,20 @@ public class Level {
 				if(particle != null) particle.tick(input);
 			else
 				if(wave != null) wave.tick(input);
+			
+			for(int i = 0; i < entities.size(); i ++) {
+				Entity e = entities.get(i);
+				e.tick();
+				if(e.dead)
+					entities.remove(i--);
+			}
 		}
 	}
 
 	public void dispose() {
+	}
+
+	public void add(Entity entity) {
+		entities.add(entity);
 	}
 }

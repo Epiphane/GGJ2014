@@ -13,8 +13,6 @@ public class WaveTail extends Entity implements Comparable {
 	private static int DEATH_TICKS = Wave.MOVE_TICKS;
 	private int deathTicks;
 	
-	public boolean dead = false;
-	
 	public WaveTail(int x, int y, Level level, Point direction) {
 		super(x, y, Art.wave[0][0], level);
 		tileX = (int) (x / GGJam.TILE_SIZE);

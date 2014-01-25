@@ -10,6 +10,7 @@ public class Art {
 	
 	public static TextureRegion[][] particle;
 	public static TextureRegion[][] wave;
+	public static TextureRegion[][] laser;
 	public static byte[][] mainCharacterMap;
 	
 	public static boolean loaded = false;
@@ -17,6 +18,7 @@ public class Art {
 	public static void load () {
 		particle = split("img/DAHT.png", 32, 32);
 		wave = split("img/WAIV.png", 16, 16);
+		laser = split("img/laser.png", 32, 8); 
 		
 		loaded = true;
 	}

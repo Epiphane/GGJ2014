@@ -20,9 +20,6 @@ public class GGJam implements ApplicationListener {
 	 */
 	private float accumulatedTime = 0;
 	
-	/** Is the program running? (or paused?) */
-	private boolean isRunning = false;
-	
 	/**
 	 * Keeps track of all inputs
 	 */
@@ -34,8 +31,6 @@ public class GGJam implements ApplicationListener {
 		gameState = new InGameState();
 		gameState.init(this);
 		Gdx.input.setInputProcessor(input);
-		
-		isRunning = true;
 	}
 
 	@Override

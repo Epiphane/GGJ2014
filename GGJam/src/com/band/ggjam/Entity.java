@@ -1,6 +1,7 @@
 package com.band.ggjam;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Entity extends Sprite {
@@ -13,11 +14,15 @@ public class Entity extends Sprite {
 	protected float y;
 	/** Current direction */
 	protected float dx, dy;
+	
+	public boolean dead = false;
+	
+	public boolean drawable;
 
 	/**
 	 * Initializes the entity to a specific location.
 	 */
-	public Entity(int x, int y, TextureRegion texture, Level level) {
+	public Entity(float x, float y, TextureRegion texture, Level level) {
 		super(texture);
 //		setSize(getWidth() / GGJam.TILE_SIZE, getHeight() / GGJam.TILE_SIZE);
 		setPosition(x, y);
@@ -25,14 +30,20 @@ public class Entity extends Sprite {
 		this.y = y;
 		
 		currentLevel = level;
+		
+		drawable = true;
 	}
 
 	/**
 	 * Initializes the entity to a specific location.
 	 */
-	public Entity(int x, int y) {
+	public Entity(float x, float y, Level level) {
 		this.x = x;
 		this.y = y;
+		
+		currentLevel = level;
+		
+		drawable = false;
 	}
 
 	/**
@@ -107,5 +118,10 @@ public class Entity extends Sprite {
 		super.setPosition(x, y);
 		this.x = x;
 		this.y = y;
+	}
+	
+	public void draw(SpriteBatch batch) {
+		if(drawable)
+			super.draw(batch);
 	}
 }
