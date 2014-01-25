@@ -1,20 +1,20 @@
 package com.band.ggjam;
 
-import java.util.ArrayList;
 
 public class Level {
+	private Entity particle, wave;
+	private GameState gameState;
 
 	public int[][] tiles = {
 				{1, 1, 1, 1, 1},
 				{1, 0, 0, 0, 1},
 				{1, 0, 0, 0, 1},
-				{1, 0, 0, 0, 1},
+				{1, 1, 0, 0, 1},
 				{1, 1, 1, 1, 1}
 		};
-	public Entity mainChar;
 	
-	public Level(int dimX, int dimy, Entity mainChar) {
-		this.mainChar = mainChar;
+	public Level(int dimX, int dimy, GameState gameState) {
+		this.gameState = gameState;
 	}
 	
 	/**
@@ -27,6 +27,20 @@ public class Level {
 		return tiles[x][y] == 0;
 	}
 	
-	
+	public void render() {
+		for(int i = 0; i < tiles.length; i ++) {
+			for(int j = 0; j < tiles[0].length; j ++) {
+				gameState.draw(Art.tiles[0][tiles[i][j]], i*GGJam.TILE_SIZE, j*GGJam.TILE_SIZE);
+			}
+		}
+	}
+
+	public void tick(Input input) {
+		
+	}
+
+	public void dispose() {
+		
+	}
 	
 }

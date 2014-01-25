@@ -9,7 +9,7 @@ public class GGJam implements ApplicationListener {
 	public static final int GAME_HEIGHT = 900;
 	public final static float DISPLAY_TILE_SCALE = 3f;
 	public final static float MULTIPLIER_FOR_GOOD_CALCULATIONS = 3;
-	public final static float TILE_SIZE = 16;
+	public final static int TILE_SIZE = 16;
 	
 	public final static float FRAMERATE = 60f;
 	

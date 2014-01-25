@@ -8,16 +8,17 @@ public class Art {
 	
 	public final static int DIRECTIONS = 4;
 	
-	public static TextureRegion[][] mainCharacter;
-	public static TextureRegion[][] mainCharacterRed;
-	public static TextureRegion[][] mainCharacterStanding;
+	public static TextureRegion[][] particle;
+	public static TextureRegion[][] wave;
+	public static TextureRegion[][] tiles;
 	public static byte[][] mainCharacterMap;
 	
 	public static boolean loaded = false;
 	
 	public static void load () {
-//		mainCharacter = split("img/player.png", 16, 19);
-//		mainCharacterRed = split("img/player_red.png", 16, 19);
+		particle = split("img/DAHT.png", 16, 16);
+		wave = split("img/WAIV.png", 16, 16);
+		tiles = split("img/tiles.png", 16, 16);
 		
 		loaded = true;
 	}
