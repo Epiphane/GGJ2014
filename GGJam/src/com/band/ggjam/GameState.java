@@ -90,4 +90,8 @@ public abstract class GameState {
 	public void beatLevel(String nextLevel) {
 		System.out.println("You should never ever get this message. Like, ever. EVER.");
 	}
+
+	public void restartLevel() {
+		System.out.println("You should never ever get this message. Like, ever. EVER.");
+	}
 }

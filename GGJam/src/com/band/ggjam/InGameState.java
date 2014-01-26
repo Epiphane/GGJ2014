@@ -16,7 +16,11 @@ public class InGameState extends GameState {
 	protected Music initMusic;
 	protected Music swapMusic;
 	
-	public InGameState() {		
+	private String levelName;
+	
+	public InGameState() {	
+		levelName = "tutorial";
+		
 		camera = new OrthographicCamera(GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
 		spriteBatch = new SpriteBatch(100);
 		
@@ -35,7 +39,7 @@ public class InGameState extends GameState {
 		initMusic.setLooping(true);
 		swapMusic.setVolume(0);
 		initMusic.setVolume(1);
-		currentLevel = new Level("tutorial2", this, initMusic, swapMusic);
+		//currentLevel = new Level("tutorial2", this, initMusic, swapMusic);
 	}
 	
 	@Override
@@ -45,7 +49,12 @@ public class InGameState extends GameState {
 
 	@Override
 	public void tick(Input input) {
-		currentLevel.tick(input);
+		if(input.buttonStack.find(Input.RESTART) != null) {
+			restartLevel();
+		}
+		else {
+			currentLevel.tick(input);
+		}
 	}
 
 	@Override
@@ -55,9 +64,14 @@ public class InGameState extends GameState {
 
 	public void beatLevel(String nextLevel) {
 		if(nextLevel != null) {
+			levelName = nextLevel;
 			currentLevel.dispose();
 			currentLevel = new Level(nextLevel, this, initMusic, swapMusic);
 		}
+	}
+	
+	public void restartLevel() {
+		currentLevel = new Level(levelName, this, initMusic, swapMusic);
 	}
 }
 
