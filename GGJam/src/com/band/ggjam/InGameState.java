@@ -10,7 +10,7 @@ public class InGameState extends GameState {
 		camera = new OrthographicCamera(GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
 		spriteBatch = new SpriteBatch(100);
 		
-		currentLevel = new Level("tutorial", this);
+		currentLevel = new Level("level1", this);
 	}
 	
 	@Override

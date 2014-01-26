@@ -11,7 +11,7 @@ public class GGJam implements ApplicationListener {
 	public final static float MULTIPLIER_FOR_GOOD_CALCULATIONS = 3;
 	public final static float TILE_SIZE = 32f;
 	
-	public final static float FRAMERATE = 6f;
+	public final static float FRAMERATE = 60f;
 	
 	private GameState gameState;
 
