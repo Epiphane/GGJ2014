@@ -41,39 +41,31 @@ public class Wave extends Entity {
 	public void tick(Input input) {
 		super.tick();
 
+		tickTails();
+		
 		if (moving) {
 			moveTicks--;
 			if (moveTicks == 0) {
 				moving = false;
 			}
-
-			x += WAVE_SPEED * dx;
-			y += WAVE_SPEED * dy;
 			
 			tickTails();
 			
-			if (dx < 0)
-				this.setRegion(Art.wave[(moveTicks + 1) % 4][0]);
-			else if (dx > 0)
-				this.setRegion(Art.wave[3 - (moveTicks) % 4][0]);
-			else if (dy < 0)
-				this.setRegion(Art.wave[(moveTicks + 1) % 4][0]);
-			else if (dy > 0)
-				this.setRegion(Art.wave[3 - (moveTicks) % 4][0]);
-			
-			
+			this.setRegion(Art.wave[3 - moveTicks][0]);
+			System.out.println("We're moving");
 		} else {
 			Point offset = input.buttonStack.walkDirection();
-			this.setRegion(Art.wave[0][0]);
+			this.setRegion(Art.wave[3][0]);
+			
 			if (!offset.equals(new Point(0, 0))) {
 				dx = offset.x;
 				dy = offset.y;
-				
-				if(currentLevel.canMove(this, x + WAVE_SPEED * dx, y + WAVE_SPEED * dy, getWidth() - 1, getHeight() - 1)) {
-					// Create a new WaveTail at our old location
+				System.out.println("Moving, offset is " + offset.x + ", " + offset.y);
+			
+				if(currentLevel.canMove(this, x + (int) GGJam.TILE_SIZE * dx, y + (int) GGJam.TILE_SIZE * dy, getWidth() - 1, getHeight() - 1)) {
+					// Create a new WaveTail at where we're going to go
 					// Be smart about corners
 					
-					tails.add(new WaveTail((int) x, (int) y, currentLevel, offset, lastDirection));
 					lastDirection = Utility.directionFromOffset(tails.get(tails.size() - 1).direction);
 					
 					// Tell the WaveTail at the end to kill itself
@@ -81,22 +73,14 @@ public class Wave extends Entity {
 					
 					tileX += dx;
 					tileY += dy;
+
+					x += GGJam.TILE_SIZE * dx;
+					y += GGJam.TILE_SIZE * dy;
+					
+					tails.add(new WaveTail((int) x, (int) y, currentLevel, offset, lastDirection));
 					
 					moving = true;
 					moveTicks = MOVE_TICKS;
-					
-					
-					this.setRotation(Utility.dirToDegree(offset));
-			
-					if (dx == 1) {
-						this.setRotation(0);
-					} else if (dx == -1) {
-						
-					} else if (dy == 1) {
-						this.setRotation(90);
-					} else if (dy == -1) {
-						
-					}
 				}
 			}
 		}
@@ -115,7 +99,7 @@ public class Wave extends Entity {
 		for (int i = tails.size() - 1; i >= 0; i--) {
 			tails.get(i).draw(batch);
 		}
-		super.draw(batch);
+		//super.draw(batch);
 	}
 	
 	public boolean collide(float x, float y, float w, float h) {

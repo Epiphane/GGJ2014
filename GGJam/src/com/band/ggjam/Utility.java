@@ -80,7 +80,7 @@ public class Utility {
 	
 	/** Returns a degree from 0 - 360 based on the int-direction */
 	public static float dirToDegree(int direction) {
-		return -direction * 45 + 270;
+		return -direction * 45 + 90;
 	}
 	
 	/** Returns a degree from 0 - 360 based on the point-offset*/
