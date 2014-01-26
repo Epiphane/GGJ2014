@@ -224,7 +224,6 @@ public class Input implements InputProcessor {
 		if(button >= 0) {
 			if(down) {
 				buttonStack.push(button);
-				System.out.println(button);
 			}
 			else {
 				buttonStack.delete(button);

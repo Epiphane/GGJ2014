@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="24" height="16" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="nextLevel" value="level7"/>
+  <property name="title" value="KEEP GOING"/>
+ </properties>
+ <tileset firstgid="1" name="Basic" tilewidth="32" tileheight="32">
+  <image source="../img/tiles.png" width="256" height="128"/>
+ </tileset>
+ <tileset firstgid="33" name="Lights" tilewidth="32" tileheight="32">
+  <image source="../img/tiles_blue.png" width="512" height="256"/>
+ </tileset>
+ <layer name="Tiles" width="24" height="16">
+  <data encoding="base64">
+   IQAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACIAAABHAAAARwAAAEcAAABHAAAARwAAAEcAAABHAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABRAAAAQQAAAFoAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAiAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAAUwAAAFIAAABSAAAAUgAAAFIAAABUAAAAQQAAAEEAAABRAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAASAAAAFIAAABSAAAAUgAAAFIAAABGAAAAUgAAAFIAAABWAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAARQAAAFIAAABSAAAAQgAAAFIAAABWAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAARQAAAFIAAABSAAAAQwAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAUwAAAFIAAABSAAAAVgAAAEEAAABBAAAAUQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAAOQAAADcAAAA3AAAANwAAADcAAAA3AAAAJgAAAEEAAABCAAAAQwAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAARQAAAFIAAABSAAAAVAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAFMAAABCAAAAVgAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABDAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAVAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAsAAAALQAAAEEAAABBAAAAQQAAAEEAAABBAAAAVwAAAEEAAABBAAAAQQAAAEEAAAAkAAAANAAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAnAAAAJwAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEEAAAAkAAAAMQAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAA4AAAAOAAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAyAAAA
+  </data>
+ </layer>
+ <objectgroup name="Walls" width="24" height="16">
+  <object name="Wall" x="0" y="448">
+   <polygon points="0,64 768,64 768,-448 0,-448 0,32 32,32 32,-192 192,-192 352,-32 352,32 416,32 416,-32 352,-32 352,-64 320,-64 320,-96 288,-96 288,-128 256,-128 256,-160 224,-160 224,-192 224,-224 128,-224 128,-192 96,-192 96,-224 32,-224 32,-416 512,-416 512,-384 736,-384 736,32 0,32"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Objects" width="24" height="16">
+  <object name="Goal" x="576" y="416" width="32" height="32"/>
+  <object name="Particle" x="96" y="128" width="32" height="32"/>
+  <object name="Emitter" x="288" y="320" width="32" height="32"/>
+  <object name="t0" type="waveTail" x="96" y="384" width="32" height="32"/>
+  <object name="Wave" x="128" y="384" width="32" height="32"/>
+  <object name="Emitter" x="320" y="352" width="32" height="32"/>
+  <object name="Emitter" x="352" y="384" width="32" height="32"/>
+  <object name="Emitter" x="224" y="256" width="32" height="32"/>
+  <object name="Emitter" x="256" y="288" width="32" height="32"/>
+  <object name="Door" x="224" y="224" width="32" height="32">
+   <properties>
+    <property name="default" value="open"/>
+    <property name="trigger" value="0"/>
+   </properties>
+  </object>
+  <object name="Switch" x="192" y="96" width="32" height="32">
+   <properties>
+    <property name="id" value="0"/>
+   </properties>
+  </object>
+  <object name="Door" x="256" y="256" width="32" height="32">
+   <properties>
+    <property name="default" value="open"/>
+    <property name="trigger" value="0"/>
+   </properties>
+  </object>
+  <object name="Door" x="288" y="288" width="32" height="32">
+   <properties>
+    <property name="default" value="open"/>
+    <property name="trigger" value="0"/>
+   </properties>
+  </object>
+  <object name="Door" x="320" y="320" width="32" height="32">
+   <properties>
+    <property name="default" value="open"/>
+    <property name="trigger" value="0"/>
+   </properties>
+  </object>
+  <object name="Door" x="352" y="352" width="32" height="32">
+   <properties>
+    <property name="default" value="open"/>
+    <property name="trigger" value="0"/>
+   </properties>
+  </object>
+  <object name="Door" x="384" y="384" width="32" height="32">
+   <properties>
+    <property name="default" value="open"/>
+    <property name="trigger" value="0"/>
+   </properties>
+  </object>
+  <object name="Door" x="96" y="224" width="32" height="32">
+   <properties>
+    <property name="" value=""/>
+    <property name="trigger" value="0"/>
+   </properties>
+  </object>
+  <object name="t1" type="waveTail" x="96" y="416" width="32" height="32"/>
+  <object name="t2" type="waveTail" x="128" y="416" width="32" height="32"/>
+  <object name="t3" type="waveTail" x="160" y="416" width="32" height="32"/>
+ </objectgroup>
+</map>

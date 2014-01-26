@@ -4,6 +4,7 @@ public class Door extends Entity {
 	public static int SHOT_TIMER = 4;
 	
 	boolean open = false;
+	boolean defaultState = false;
 	int[] triggerIDs;
 	
 	int frame;
@@ -20,11 +21,17 @@ public class Door extends Entity {
 		frame = 0;
 	}
 	
+	public Door(int x, int y, Level level, String trigger, boolean defaultState) {
+		this(x, y, level, trigger);
+		
+		this.defaultState = defaultState;
+	}
+	
 	public void tick() {
-		open = true;
+		open = defaultState;
 		for(int i = 0; i < triggerIDs.length; i ++) {
-			if(!currentLevel.switches.get(triggerIDs[i]).active)
-				open = false;
+			if(currentLevel.switches.get(triggerIDs[i]).active)
+				open = !defaultState;
 		}
 		
 		setState();

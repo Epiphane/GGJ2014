@@ -123,7 +123,10 @@ public class Level {
 				add(new Emitter((Integer) properties.get("x"), (Integer) properties.get("y"), this), false);
 			}
 			else if(object.getName().equals("Door")) {
-				add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
+				if(properties.containsKey("default"))
+					add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger"), true), false);
+				else
+					add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
 			}
 			else if(object.getName().equals("Switch")) {
 				addSwitch(new Switch((Integer) properties.get("x"), (Integer) properties.get("y"), this, Integer.parseInt((String) properties.get("id"))));
@@ -168,7 +171,7 @@ public class Level {
 	public boolean canMove(Entity e, float x, float y, float w, float h) {
 		if(particleExplodeLoss) return true;
 		
-		int pad = 2;
+		int pad = 1;
 		
 		float x0 = (x    ) + pad;// * GGJam.TILE_SIZE;
 		float y0 = (y    ) + pad;// * GGJam.TILE_SIZE;
@@ -210,14 +213,14 @@ public class Level {
 		
 		for(Entity other : entities) {
 			if(!e.canPass(other) && other.collide(x, y, w, h)) {
-				if(e.getClass() == Particle.class) explodeParticle();
+				if(e.getClass() == Particle.class && other.hazard) explodeParticle();
 				return false;
 			}
 		}
 		
 		for(Entity other : entitiesSubLayer) {
 			if(!e.canPass(other) && other.collide(x, y, w, h)) {
-				if(e.getClass() == Particle.class) explodeParticle();
+				if(e.getClass() == Particle.class && other.hazard) explodeParticle();
 				return false;
 			}
 		}

@@ -1,9 +1,5 @@
 package com.band.ggjam;
 
-import java.io.File;
-import java.util.logging.FileHandler;
-
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
@@ -19,7 +15,7 @@ public class InGameState extends GameState {
 	private String levelName;
 	
 	public InGameState() {	
-		levelName = "level4";
+		levelName = "tutorial";
 		
 		camera = new OrthographicCamera(GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
 		spriteBatch = new SpriteBatch(100);
