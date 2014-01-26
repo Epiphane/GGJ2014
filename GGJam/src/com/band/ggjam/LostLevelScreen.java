@@ -21,8 +21,10 @@ public class LostLevelScreen extends GameState {
 
 	@Override
 	public void tick(Input input) {
-		// TODO Auto-generated method stub
-
+		if(input.buttonStack.find(Input.RESTART) != null) {
+			inGameState.restartLevel();
+			setScreen(inGameState);
+		}
 	}
 
 	@Override

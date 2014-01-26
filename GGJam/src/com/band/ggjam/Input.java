@@ -119,7 +119,7 @@ public class Input implements InputProcessor {
 		}
 		
 		/** Returns the node containing "button," or null if it's not there */
-		private Node find(int button) {
+		public Node find(int button) {
 			Node cursor = currentButton;
 			while(cursor != null) {
 				if(cursor.button == button) return cursor;
@@ -161,7 +161,7 @@ public class Input implements InputProcessor {
 	public static final int DOWN = 4;
 	public static final int LEFT = 6;
 	
-	public static final int DASH = 10;
+	public static final int RESTART = 10;
 	public static final int ACTION = 12;
 	
     /** Defines the direction to perform an action if the user has nothing held down. */
@@ -195,8 +195,8 @@ public class Input implements InputProcessor {
 		else if (key == Keys.DPAD_LEFT)  button = LEFT;
 		else if (key == Keys.DPAD_RIGHT) button = RIGHT;
 		
-		else if (key == Keys.Z)          button = DASH;
-		else if (key == Keys.SPACE)		     button = ACTION;
+		else if (key == Keys.R)          button = RESTART;
+		else if (key == Keys.SPACE)		 button = ACTION;
 		
 		// If it's recognized, set the state in the array
 		if(button >= 0) {
