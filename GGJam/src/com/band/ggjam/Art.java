@@ -24,7 +24,7 @@ public class Art {
 		wave = split("img/WAIV.png", 32, 32);
 		entities = split("img/entities.png", 32, 32);
 		
-		titleScreen = load("img/title.png", 32, 32);
+		titleScreen = load("img/title.png", 1024, 512);
 		
 		loaded = true;
 	}

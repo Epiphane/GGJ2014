@@ -11,7 +11,7 @@ public class TitleState extends GameState {
 	@Override
 	public void render() {
 		spriteBatch.begin();
-		draw(Art.titleScreen, 50, 50);
+		draw(Art.titleScreen, 0, 0);
 		spriteBatch.end();
 	}
 
