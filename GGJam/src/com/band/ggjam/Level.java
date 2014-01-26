@@ -35,7 +35,7 @@ public class Level {
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle;
 	
-	private boolean beatLevel, particleExplodeLoss;
+	private boolean beatLevel, particleExplodeLoss, particleSpawning;
 	
 	/**
 	 * Contains the filename of the next level, or null if no level afterwards
@@ -47,12 +47,14 @@ public class Level {
 	private SpriteBatch batch;
 	
 	private ArrayList<Entity> entities;
+	public ArrayList<Switch> switches;
 	/** Used for entities that are drawn below all other entities (like Laser) */
 	private ArrayList<Entity> entitiesSubLayer;
 	
 	public Level(String mapName, GameState gameState) {
 		entities = new ArrayList<Entity>();
 		entitiesSubLayer = new ArrayList<Entity>();
+		switches = new ArrayList<Switch>();
 		
 		map = new TmxMapLoader().load("levels/"+mapName+".tmx");
 		MapProperties prop = map.getProperties();
@@ -104,7 +106,7 @@ public class Level {
 				add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
 			}
 			else if(object.getName().equals("Switch")) {
-				add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
+				addSwitch(new Switch((Integer) properties.get("x"), (Integer) properties.get("y"), this, Integer.parseInt((String) properties.get("id"))));
 			}
 			else if(object.getName().charAt(0) == 't') {
 				int tailIndex = Integer.parseInt(object.getName().substring(1));
@@ -130,6 +132,7 @@ public class Level {
 		controllingParticle = true;
 		beatLevel = false;
 		particleExplodeLoss = false;
+		particleSpawning = true;
 	}
 	
 	/**
@@ -191,6 +194,10 @@ public class Level {
 			}
 		}
 		
+		for(Switch other : switches)
+			if(!other.canPass(e) && other.collide(x, y, w, h))
+				return false;
+		
 		return true;
 	}
 	
@@ -204,13 +211,16 @@ public class Level {
 		for(Entity e : entitiesSubLayer)
 			e.draw(batch);
 
-		batch.setColor(particle.getColor());
-		if(particle != null) particle.draw(batch);
-		batch.setColor(Color.WHITE);
-		if(wave != null) wave.draw(batch);
+		for(Entity e : switches)
+			e.draw(batch);
 		
 		for(Entity e : entities)
 			e.draw(batch);
+		
+		if(wave != null) wave.draw(batch);
+		batch.setColor(particle.getColor());
+		if(particle != null) particle.draw(batch);
+		batch.setColor(Color.WHITE);
 
 		batch.end();
 	}
@@ -231,6 +241,9 @@ public class Level {
 		// If we died, do an animation
 		else if(particleExplodeLoss) {
 			
+		}
+		else if(particleSpawning) {
+			particleSpawning = particle.spawn();
 		}
 		// Otherwise treat everything normally
 		else {
@@ -268,5 +281,9 @@ public class Level {
 			entitiesSubLayer.add(entity);
 		else
 			entities.add(entity);
+	}
+
+	public void addSwitch(Switch s) {
+		switches.add(s);
 	}
 }
