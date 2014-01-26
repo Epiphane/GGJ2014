@@ -51,6 +51,7 @@ public class Level {
 	/** Used for entities that are drawn below all other entities (like Laser) */
 	private ArrayList<Entity> entitiesSubLayer;
 	
+	@SuppressWarnings("unchecked")
 	public Level(String mapName, GameState gameState) {
 		entities = new ArrayList<Entity>();
 		entitiesSubLayer = new ArrayList<Entity>();
@@ -114,6 +115,8 @@ public class Level {
 						this, tailIndex));
 			}
 		}
+
+		newTails.add(new WaveTail( (int) wave.x, (int) wave.y, this, newTails.size()));
 		
 		// Sort the wave tails
 		Collections.sort(newTails);
@@ -132,7 +135,7 @@ public class Level {
 		controllingParticle = true;
 		beatLevel = false;
 		particleExplodeLoss = false;
-		particleSpawning = true;
+//		particleSpawning = true;
 	}
 	
 	/**
