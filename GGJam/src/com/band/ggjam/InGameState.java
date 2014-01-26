@@ -28,7 +28,6 @@ public class InGameState extends GameState {
 		FileHandle swapHandler = null;
 		FileHandle initHandler = null;
 		try{
-			swapHandler = Gdx.files.internal("audio/tut2.wave.wav");
 			initHandler = Gdx.files.internal("audio/tut2.dot.wav");
 		}catch(Exception e) {
 			System.out.println("Encountered error: " + e);
