@@ -20,11 +20,11 @@ public class Emitter extends Entity {
 			currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, 0, frame), true);
 			currentLevel.add(new Laser(x, y, currentLevel, 0, -Laser.LASER_SPEED, frame), true);
 			currentLevel.add(new Laser(x, y, currentLevel, 0, Laser.LASER_SPEED, frame), true);
-			currentLevel.add(new Laser(x, y, currentLevel, Laser.LASER_SPEED, Laser.LASER_SPEED, frame), true);
-			currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, -Laser.LASER_SPEED, frame), true);
-			currentLevel.add(new Laser(x, y, currentLevel, Laser.LASER_SPEED, -Laser.LASER_SPEED, frame), true);
-			currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, Laser.LASER_SPEED, frame), true);
 			shotDelay = 0;
+//			currentLevel.add(new Laser(x, y, currentLevel, Laser.LASER_SPEED, Laser.LASER_SPEED, frame), true);
+//			currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, -Laser.LASER_SPEED, frame), true);
+//			currentLevel.add(new Laser(x, y, currentLevel, Laser.LASER_SPEED, -Laser.LASER_SPEED, frame), true);
+//			currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, Laser.LASER_SPEED, frame), true);
 		}
 	}
 }

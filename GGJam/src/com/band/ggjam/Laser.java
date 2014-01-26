@@ -12,7 +12,7 @@ public class Laser extends Entity {
 	private boolean toBeDead = false;
 	
 	public Laser(float x, float y, Level level, float dx, float dy, int frameStart) {
-		super(x, y, Art.laser[0][0], level);
+		super(x + 8, y + 8, Art.laser[0][0], level);
 		
 		hazard = true;
 		
