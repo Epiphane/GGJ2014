@@ -39,7 +39,8 @@ public class InGameState extends GameState {
 		initMusic.setLooping(true);
 		swapMusic.setVolume(0);
 		initMusic.setVolume(1);
-		//currentLevel = new Level("tutorial2", this, initMusic, swapMusic);
+
+		restartLevel();
 	}
 	
 	@Override
