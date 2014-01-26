@@ -39,6 +39,8 @@ public class Level {
 	private Wave wave;
 	private MapObject goal;
 	
+	private String levelTitle;
+	
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle = true;
 	
@@ -76,6 +78,7 @@ public class Level {
 		map = new TmxMapLoader().load("levels/"+mapName+".tmx");
 		MapProperties prop = map.getProperties();
 		nextLevel = (String) prop.get("nextLevel");
+		levelTitle = (String) prop.get("title");
 		
 		width = (Integer) map.getProperties().get("width");
 		height = (Integer) map.getProperties().get("height");
@@ -247,6 +250,9 @@ public class Level {
 			if(particle != null) particle.draw(batch);
 			batch.setColor(Color.WHITE);
 		}
+		
+		if(levelTitle != null)
+			gameState.drawTitle(levelTitle);
 			
 		batch.end();
 	}

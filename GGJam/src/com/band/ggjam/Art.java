@@ -14,6 +14,8 @@ public class Art {
 	public static TextureRegion[][] wave;
 	public static TextureRegion[][] laser;
 	public static TextureRegion[][] entities;
+	
+	public static TextureRegion[][] guys;
 	public static byte[][] mainCharacterMap;
 	
 	public static boolean loaded = false;
@@ -23,6 +25,8 @@ public class Art {
 		laser = split("img/laser.png", 16, 16); 
 		wave = split("img/WAIV.png", 32, 32);
 		entities = split("img/entities.png", 32, 32);
+		
+		guys = split("img/font.png", 20, 40);
 		
 		titleScreen = load("img/title.png", 1024, 512);
 		
