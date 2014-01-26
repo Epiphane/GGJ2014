@@ -43,6 +43,7 @@ public class Level {
 	public boolean controllingParticle = true;
 	
 	private boolean beatLevel, particleExplodeLoss, particleSpawning;
+	private int ticks;
 	
 	/**
 	 * Contains the filename of the next level, or null if no level afterwards
@@ -162,6 +163,8 @@ public class Level {
 	 * @return CAN WE MOVE THERE OR NOT
 	 */
 	public boolean canMove(Entity e, float x, float y, float w, float h) {
+		if(particleExplodeLoss) return true;
+		
 		float x0 = (x    ) + 2;// * GGJam.TILE_SIZE;
 		float y0 = (y    ) + 2;// * GGJam.TILE_SIZE;
 		float x1 = (x + w) - 2;// * GGJam.TILE_SIZE;
@@ -177,15 +180,15 @@ public class Level {
 			}
 		}
 
-		if(e instanceof Particle) {
+		if(e.getClass() == Particle.class) {
 			Rectangle polyToCheck = ((RectangleMapObject) goal).getRectangle();
 			if(polyToCheck.contains(x0, y0) || polyToCheck.contains(x0, y1) || polyToCheck.contains(x1, y0) || polyToCheck.contains(x1, y1))
 				beatLevel = true;
 			
 		}
 		else
-			if(!e.canPass(particle) && particle.collide(x, y, w, h)) {
-				if(e.hazard) particleExplodeLoss = true;
+			if(!e.canPass(particle) && particle.collide(x, y, w, h) && !particleExplodeLoss) {
+				if(e.hazard) explodeParticle();
 				return false;
 			}
 
@@ -202,14 +205,14 @@ public class Level {
 		
 		for(Entity other : entities) {
 			if(!e.canPass(other) && other.collide(x, y, w, h)) {
-				if(e instanceof Particle) particleExplodeLoss = true;
+				if(e.getClass() == Particle.class) explodeParticle();
 				return false;
 			}
 		}
 		
 		for(Entity other : entitiesSubLayer) {
 			if(!e.canPass(other) && other.collide(x, y, w, h)) {
-				if(e instanceof Particle) particleExplodeLoss = true;
+				if(e.getClass() == Particle.class) explodeParticle();
 				return false;
 			}
 		}
@@ -236,12 +239,15 @@ public class Level {
 		
 		for(Entity e : entities)
 			e.draw(batch);
-		
-		if(wave != null) wave.draw(batch);
-		batch.setColor(particle.getColor());
-		if(particle != null) particle.draw(batch);
-		batch.setColor(Color.WHITE);
 
+		if(!particleExplodeLoss) {
+			if(wave != null) wave.draw(batch);
+		
+			batch.setColor(particle.getColor());
+			if(particle != null) particle.draw(batch);
+			batch.setColor(Color.WHITE);
+		}
+			
 		batch.end();
 	}
 
@@ -260,7 +266,24 @@ public class Level {
 		}
 		// If we died, do an animation
 		else if(particleExplodeLoss) {
+			ticks--;
 			
+			for(int i = 0; i < entities.size(); i ++) {
+				Entity e = entities.get(i);
+				e.tick();
+				if(e.dead)
+					entities.remove(i--);
+			}
+			
+			for(int i = 0; i < entitiesSubLayer.size(); i ++) {
+				Entity e = entitiesSubLayer.get(i);
+				e.tick();
+				if(e.dead)
+					entitiesSubLayer.remove(i--);
+			}
+			
+			if(ticks <= 0)
+				gameState.setScreen(new LostLevelScreen(gameState));
 		}
 		else if(particleSpawning) {
 			particleSpawning = particle.spawn();
@@ -314,5 +337,13 @@ public class Level {
 
 	public void addSwitch(Switch s) {
 		switches.add(s);
+	}
+	
+	private void explodeParticle() {
+		ticks = 100;
+		for(int i = 0; i < 50; i ++) {
+			add(new MiniParticle(particle.x, particle.y, this, (float) Math.random() * 20 - 10, (float) Math.random() * 20 - 10), false);
+		}
+		particleExplodeLoss = true;
 	}
 }
