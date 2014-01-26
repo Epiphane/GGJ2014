@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
 public class Input implements InputProcessor {
+	public static boolean clicked = false;
+	
 	public class InputStack {
 		private class Node {
 			int button;
@@ -220,6 +222,8 @@ public class Input implements InputProcessor {
 	}
 	
 	public boolean keyDown(int keycode) {
+		clicked = true;
+		
 		// Bind escape to close the game
 		if(keycode == Keys.ESCAPE) {
 			Gdx.app.exit();
@@ -243,7 +247,7 @@ public class Input implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		clicked = true;
 		return false;
 	}
 
