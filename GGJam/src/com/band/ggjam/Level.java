@@ -168,10 +168,12 @@ public class Level {
 	public boolean canMove(Entity e, float x, float y, float w, float h) {
 		if(particleExplodeLoss) return true;
 		
-		float x0 = (x    ) + 2;// * GGJam.TILE_SIZE;
-		float y0 = (y    ) + 2;// * GGJam.TILE_SIZE;
-		float x1 = (x + w) - 2;// * GGJam.TILE_SIZE;
-		float y1 = (y + h) - 2;// * GGJam.TILE_SIZE;
+		int pad = 2;
+		
+		float x0 = (x    ) + pad;// * GGJam.TILE_SIZE;
+		float y0 = (y    ) + pad;// * GGJam.TILE_SIZE;
+		float x1 = (x + w) - pad;// * GGJam.TILE_SIZE;
+		float y1 = (y + h) - pad;// * GGJam.TILE_SIZE;
 		
 //		System.out.println("Checking ["+x0+","+y0+","+x1+","+y1+"]");
 		
@@ -190,7 +192,7 @@ public class Level {
 			
 		}
 		else
-			if(!e.canPass(particle) && particle.collide(x, y, w, h) && !particleExplodeLoss) {
+			if(!e.canPass(particle) && e.collide(particle.x, particle.y, particle.getWidth(), particle.getHeight()) && !particleExplodeLoss) {
 				if(e.hazard) explodeParticle();
 				return false;
 			}

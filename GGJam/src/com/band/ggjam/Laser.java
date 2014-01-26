@@ -86,4 +86,22 @@ public class Laser extends Entity {
 	public boolean canPass(Entity other) {
 		return (other instanceof Laser) || (other instanceof Emitter);
 	}
+	
+	public boolean collide(float x, float y, float w, float h) {
+		float midx = this.x + getWidth() / 2;
+		float midy = this.y + getHeight() / 2;
+		float padx = getWidth() / 2;
+		float pady = -5;
+		
+		if(col == 1 || col ==  6) {
+			pady = getHeight() / 2;
+			padx = -5;
+		}
+		
+		if((x < midx + padx && x + w > midx - padx) && 
+				(y < midy + pady && y + h > midy - pady)){
+			return true;
+		}
+		return false;
+	}
 }

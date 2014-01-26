@@ -101,6 +101,9 @@ public class Wave extends Entity {
 	}
 	
 	public boolean collide(float x, float y, float w, float h) {
+		x += 2; y += 2;
+		w -= 2; h -= 2;
+		
 		for(WaveTail tail : tails) {
 			if(tail.collide(x, y, w, h))
 				return true;
