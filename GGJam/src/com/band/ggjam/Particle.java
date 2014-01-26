@@ -23,11 +23,7 @@ public class Particle extends Entity {
 		
 		width = getWidth();
 		height = getHeight();
-<<<<<<< HEAD
 		scale = 5;
-=======
-		scale = 10;
->>>>>>> 5bdcd75b2b63a3e7c1568d2322d1fd650a3dc3eb
 		setSize(width*scale, height*scale);
 		
 		spriteSheet = Art.particle;
