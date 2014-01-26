@@ -29,8 +29,7 @@ public class LostLevelScreen extends GameState {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		spriteBatch.dispose();
 	}
 
 }

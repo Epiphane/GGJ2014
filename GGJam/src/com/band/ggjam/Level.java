@@ -252,7 +252,7 @@ public class Level {
 		}
 		
 		if(levelTitle != null)
-			gameState.drawTitle(levelTitle);
+			drawTitle(levelTitle);
 			
 		batch.end();
 	}
@@ -336,7 +336,7 @@ public class Level {
 
 	public void add(Entity entity, boolean subLayer) {
 		if(subLayer)
-			entitiesSubLayer.add(entity);
+			entitiesSubLayer.add(0, entity);
 		else
 			entities.add(entity);
 	}
@@ -351,5 +351,24 @@ public class Level {
 			add(new MiniParticle(particle.x, particle.y, this, (float) Math.random() * 20 - 10, (float) Math.random() * 20 - 10), false);
 		}
 		particleExplodeLoss = true;
+	}
+	
+	public void drawStringTopRight(String string, float f, float g) {
+		
+		string = string.toUpperCase();
+		f -= string.length() * 20;
+		for(int i = 0; i < string.length(); i ++) {
+			char ch = string.charAt(i);
+			for(int ys = 0; ys < GameState.chars.length; ys ++) {
+				int xs = GameState.chars[ys].indexOf(ch);
+				if(xs >= 0) {
+					batch.draw(Art.guys[xs][ys], f + i * 20, g);
+				}
+			}
+		}
+	}
+	
+	public void drawTitle(String string) {
+		drawStringTopRight(string, width * GGJam.TILE_SIZE, height * GGJam.TILE_SIZE - 40);
 	}
 }

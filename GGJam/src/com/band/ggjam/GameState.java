@@ -10,7 +10,7 @@ public abstract class GameState {
 	protected OrthographicCamera camera;
 	protected SpriteBatch batch;
 	
-	private final String[] chars = {"ABCDEFGHIJKLMNOPQ","RSTUVWXYZ01234567","89.,!?:;\"'+-=/\\< "};
+	public static final String[] chars = {"ABCDEFGHIJKLMNOPQ","RSTUVWXYZ01234567","89.,!?:;\"'+-=/\\< "};
 	protected SpriteBatch spriteBatch;
 	
 	protected Music menuTheme;
@@ -78,8 +78,10 @@ public abstract class GameState {
 	}
 	
 	public void drawStringTopRight(String string, int x, int y) {
+		spriteBatch.begin();
+		
 		string = string.toUpperCase();
-		x -= string.length() * 20;
+//		x -= string.length() * 20;
 		for(int i = 0; i < string.length(); i ++) {
 			char ch = string.charAt(i);
 			for(int ys = 0; ys < chars.length; ys ++) {
@@ -89,6 +91,7 @@ public abstract class GameState {
 				}
 			}
 		}
+		spriteBatch.end();
 	}
 	
 	public void drawTitle(String string) {

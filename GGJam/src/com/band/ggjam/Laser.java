@@ -5,14 +5,16 @@ public class Laser extends Entity {
 	public static final float LASER_SPEED = 8;
 	public static final int LASER_FRAMES = 10;
 
-	private int frame;
+	private int frame, deadTicks;
 	private int col;
 	
 	private float dx, dy;
 	private boolean toBeDead = false;
 	
 	public Laser(float x, float y, Level level, float dx, float dy, int frameStart) {
-		super(x + 8, y + 8, Art.laser[0][0], level);
+		super(x, y, Art.laser[0][0], level);
+		
+		deadTicks = 2;
 		
 		hazard = true;
 		
@@ -38,13 +40,16 @@ public class Laser extends Entity {
 	}
 	
 	public void tick() {
-		setRegion(Art.laser[col][frame * 2 / LASER_FRAMES]);
-		if(++frame >= LASER_FRAMES) frame = 0;
-		
-		if(toBeDead)
-			dead = true;
-		
-		tryMove(dx, dy);
+		if(toBeDead) {
+			if(deadTicks-- <= 0)
+				dead = true;
+		}
+		else {
+			setRegion(Art.laser[col][frame * 2 / LASER_FRAMES]);
+			if(++frame >= LASER_FRAMES) frame = 0;
+			
+			tryMove(dx, dy);
+		}
 	}
 	
 	public void tryMove(float dx, float dy) {
@@ -67,6 +72,7 @@ public class Laser extends Entity {
 	
 	public void hitWall(float dx, float dy) {
 		toBeDead = true;
+		deadTicks = 3;
 		setRegion(Art.laser[col][3]);
 
 		x += dx;

@@ -53,7 +53,7 @@ public class GGJam implements ApplicationListener {
 	}
 	
 	public void setScreen(GameState newState) {
-		if(gameState != null) gameState.removed();
+//		if(gameState != null) gameState.removed();
 		gameState = newState;
 		if(gameState != null) gameState.init(this);
 	}

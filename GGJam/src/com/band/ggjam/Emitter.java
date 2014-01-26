@@ -1,7 +1,7 @@
 package com.band.ggjam;
 
 public class Emitter extends Entity {
-	public static int SHOT_TIMER = 4;
+	public static int SHOT_TIMER = 2;
 	
 	int shotDelay;
 	private int frame;
