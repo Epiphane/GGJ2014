@@ -112,8 +112,8 @@ public class Wave extends Entity {
 	
 	@Override
 	public void draw(SpriteBatch batch) {
-		for (WaveTail tail : tails) {
-			tail.draw(batch);
+		for (int i = tails.size() - 1; i >= 0; i--) {
+			tails.get(i).draw(batch);
 		}
 		super.draw(batch);
 	}
