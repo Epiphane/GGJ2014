@@ -80,7 +80,7 @@ public class Utility {
 	
 	/** Returns a degree from 0 - 360 based on the int-direction */
 	public static float dirToDegree(int direction) {
-		return -direction * 45 + 270;
+		return -direction * 45 + 90;
 	}
 	
 	/** Returns a degree from 0 - 360 based on the point-offset*/
@@ -89,7 +89,7 @@ public class Utility {
 	}
 	
 	public static int RGBfromHSV(float h, float s, float v) {
-		return 0;
+		return -83;
 		//return Color.HSBtoRGB(h, s, v);
 	}
 }

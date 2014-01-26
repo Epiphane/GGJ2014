@@ -13,8 +13,9 @@ public class WaveTail extends Entity implements Comparable {
 	int artIndex = 0;
 
 	private static int WAVE_SPEED = Wave.WAVE_SPEED;
-	private static int DEATH_TICKS = Wave.MOVE_TICKS;
-	private int deathTicks;
+	private static int MOVE_TICKS = Wave.MOVE_TICKS;
+	private int deathTicks = 0;
+	private int moveTicks = 0;
 
 	public WaveTail(int x, int y, Level level, Point direction, int lastDirection) {
 		super(x, y, Art.wave[0][0], level);
@@ -23,6 +24,8 @@ public class WaveTail extends Entity implements Comparable {
 		if (direction != null) {
 			setDirection(direction, lastDirection);
 		}
+		
+		moveTicks = MOVE_TICKS;
 	}
 
 	public WaveTail(int x, int y, Level level, int index) {
@@ -40,12 +43,14 @@ public class WaveTail extends Entity implements Comparable {
 		int currDirection = Utility.directionFromOffset(direction);
 		
 		if (lastDirection == -1 || lastDirection == currDirection) {
+			
 			this.setRotation(Utility.dirToDegree(direction));
+			
 			if (direction.x == 1) {
-				this.setRotation(0);
+				//this.setRotation(0);
 			}
 			if (direction.y == 1) {
-				this.setRotation(90);
+				//this.setRotation(90);
 			}
 		} else {
 			if (lastDirection == 0 && currDirection == 2) {
@@ -67,13 +72,13 @@ public class WaveTail extends Entity implements Comparable {
 			}
 		}
 		
-		this.setRegion(Art.wave[0][artIndex]);
+		this.setRegion(Art.wave[0][0]);
 
 		return Utility.directionFromOffset(direction);
 	}
 
 	public void die() {
-		deathTicks = DEATH_TICKS;
+		deathTicks = MOVE_TICKS;
 	}
 
 	public void tick() {
@@ -84,24 +89,12 @@ public class WaveTail extends Entity implements Comparable {
 				System.out.println("NULL DIRECTION YO");
 			}
 
-			x += direction.x * WAVE_SPEED;
-			y += direction.y * WAVE_SPEED;
-
-			if (direction.x < 0) {
-				this.setRegion(Art.wave[(deathTicks) % 4][artIndex]);
-			} else if (direction.x > 0) {
-				this.setRegion(Art.wave[3 - (deathTicks + 3) % 4][artIndex]);
-			} else if (direction.y < 0) {
-				this.setRegion(Art.wave[(deathTicks) % 4][artIndex]);
-			} else if (direction.y > 0) {
-				this.setRegion(Art.wave[3 - (deathTicks + 3) % 4][artIndex]);
-			}
-
-			setPosition(x, y);
-
 			if (deathTicks == 0) {
 				dead = true;
 			}
+		} else if (moveTicks > 0) {
+			moveTicks--;
+			this.setRegion(Art.wave[3 - moveTicks][0]);
 		}
 	}
 
