@@ -19,7 +19,7 @@ public class InGameState extends GameState {
 	private String levelName;
 	
 	public InGameState() {	
-		levelName = "level4";
+		levelName = "level3";
 		
 		camera = new OrthographicCamera(GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
 		spriteBatch = new SpriteBatch(100);

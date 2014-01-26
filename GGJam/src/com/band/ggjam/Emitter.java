@@ -16,10 +16,10 @@ public class Emitter extends Entity {
 		frame += 2;
 		if(frame >= Laser.LASER_FRAMES) frame = 0;
 		if(shotDelay++ > SHOT_TIMER) {
-			currentLevel.add(new Laser(x, y, currentLevel, Laser.LASER_SPEED, 0, frame), true);
-			currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, 0, frame), true);
-			currentLevel.add(new Laser(x, y, currentLevel, 0, -Laser.LASER_SPEED, frame), true);
-			currentLevel.add(new Laser(x, y, currentLevel, 0, Laser.LASER_SPEED, frame), true);
+			if(currentLevel.canMove(this, x + getWidth(), y, 0, 0)) currentLevel.add(new Laser(x, y, currentLevel, Laser.LASER_SPEED, 0, frame), true);
+			if(currentLevel.canMove(this, x - getWidth(), y, 0, 0)) currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, 0, frame), true);
+			if(currentLevel.canMove(this, x, y - getHeight(), 0, 0)) currentLevel.add(new Laser(x, y, currentLevel, 0, -Laser.LASER_SPEED, frame), true);
+			if(currentLevel.canMove(this, x, y + getHeight() + 10, 0, 0)) currentLevel.add(new Laser(x, y, currentLevel, 0, Laser.LASER_SPEED, frame), true);
 			shotDelay = 0;
 //			currentLevel.add(new Laser(x, y, currentLevel, Laser.LASER_SPEED, Laser.LASER_SPEED, frame), true);
 //			currentLevel.add(new Laser(x, y, currentLevel, -Laser.LASER_SPEED, -Laser.LASER_SPEED, frame), true);
