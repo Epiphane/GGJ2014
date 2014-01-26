@@ -303,11 +303,11 @@ public class Level {
 				controllingParticle = !controllingParticle;
 			}
 			
-			if (controllingParticle) {
+			//if (controllingParticle) {
 				particle.tick(input);
-			} else {
+			//} else {
 				wave.tick(input);
-			}
+			//}
 			
 			for(int i = 0; i < entities.size(); i ++) {
 				Entity e = entities.get(i);

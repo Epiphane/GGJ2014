@@ -146,6 +146,18 @@ public class Input implements InputProcessor {
 			}
 			return Utility.offsetFromDirection(NO_DIRECTION);
 		}
+		
+		public Point waveWalkDirection() {
+			Node cursor = currentButton;
+			while (cursor != null) {
+				if (cursor.button == WAVE_UP || cursor.button == WAVE_LEFT ||
+						cursor.button == WAVE_DOWN || cursor.button == WAVE_RIGHT) {
+					return Utility.offsetFromDirection(cursor.button - 20);
+				}	
+				cursor = cursor.next;
+			}
+			return Utility.offsetFromDirection(NO_DIRECTION);
+		}
 	}
 	
 	// Static key values
@@ -163,6 +175,12 @@ public class Input implements InputProcessor {
 	
 	public static final int RESTART = 10;
 	public static final int ACTION = 12;
+	
+	public static final int WAVE_UP = UP + 20;
+	public static final int WAVE_DOWN = DOWN + 20;
+	public static final int WAVE_LEFT = LEFT + 20;
+	public static final int WAVE_RIGHT = RIGHT + 20;
+	
 	
     /** Defines the direction to perform an action if the user has nothing held down. */
 	public final static int DEFAULT_DIRECTION = UP;
@@ -194,6 +212,10 @@ public class Input implements InputProcessor {
 		else if (key == Keys.DPAD_DOWN)  button = DOWN;
 		else if (key == Keys.DPAD_LEFT)  button = LEFT;
 		else if (key == Keys.DPAD_RIGHT) button = RIGHT;
+		else if (key == Keys.W)  button = WAVE_UP;
+		else if (key == Keys.A)  button = WAVE_LEFT;
+		else if (key == Keys.S)  button = WAVE_DOWN;
+		else if (key == Keys.D)  button  = WAVE_RIGHT;
 		
 		else if (key == Keys.R)          button = RESTART;
 		else if (key == Keys.SPACE)		 button = ACTION;
@@ -202,6 +224,7 @@ public class Input implements InputProcessor {
 		if(button >= 0) {
 			if(down) {
 				buttonStack.push(button);
+				System.out.println(button);
 			}
 			else {
 				buttonStack.delete(button);

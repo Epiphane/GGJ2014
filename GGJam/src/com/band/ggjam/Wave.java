@@ -51,7 +51,7 @@ public class Wave extends Entity {
 			
 			this.setRegion(Art.wave[3 - moveTicks][0]);
 		} else {
-			Point offset = input.buttonStack.walkDirection();
+			Point offset = input.buttonStack.waveWalkDirection();
 			this.setRegion(Art.wave[3][0]);
 			
 			if (!offset.equals(new Point(0, 0))) {
