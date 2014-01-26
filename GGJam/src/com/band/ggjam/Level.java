@@ -3,6 +3,7 @@ package com.band.ggjam;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +25,12 @@ public class Level {
 	private OrthogonalTiledMapRenderer renderer;
 	
 	/**
+	 * MUSIC VARIABLES
+	 */
+	private Music initialMusic;
+	private Music switchMusic;
+	
+	/**
 	 * Width and height of the level in tiles
 	 */
 	private int width, height;
@@ -33,7 +40,7 @@ public class Level {
 	private MapObject goal;
 	
 	/** You're either controlling a particle, or a wave.  This tells you which. */
-	public boolean controllingParticle;
+	public boolean controllingParticle = true;
 	
 	private boolean beatLevel, particleExplodeLoss, particleSpawning;
 	
@@ -52,10 +59,18 @@ public class Level {
 	private ArrayList<Entity> entitiesSubLayer;
 	
 	@SuppressWarnings("unchecked")
-	public Level(String mapName, GameState gameState) {
+	public Level(String mapName, GameState gameState, Music initMusic, Music swapMusic) {
 		entities = new ArrayList<Entity>();
 		entitiesSubLayer = new ArrayList<Entity>();
 		switches = new ArrayList<Switch>();
+		
+		// Load some sounds nigga
+		initialMusic = initMusic;
+		switchMusic = swapMusic;
+		
+		// Play Dem sounds
+		initialMusic.play();
+		swapMusic.play();
 		
 		map = new TmxMapLoader().load("levels/"+mapName+".tmx");
 		MapProperties prop = map.getProperties();
@@ -250,7 +265,16 @@ public class Level {
 		}
 		// Otherwise treat everything normally
 		else {
+			// Switch between snake/particle music
 			if (input.buttonStack.shouldSwitch()) {
+				if(controllingParticle) {
+					initialMusic.setVolume(1);
+					switchMusic.setVolume(0);
+				}
+				else {
+					switchMusic.setVolume(1);
+					initialMusic.setVolume(0);
+				}
 				controllingParticle = !controllingParticle;
 			}
 			
