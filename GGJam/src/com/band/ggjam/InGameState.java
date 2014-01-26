@@ -19,7 +19,7 @@ public class InGameState extends GameState {
 	private String levelName;
 	
 	public InGameState() {	
-		levelName = "tutorial";
+		levelName = "level4";
 		
 		camera = new OrthographicCamera(GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
 		spriteBatch = new SpriteBatch(100);
@@ -29,6 +29,7 @@ public class InGameState extends GameState {
 		FileHandle initHandler = null;
 		try{
 			initHandler = Gdx.files.internal("audio/tut2.dot.wav");
+			swapHandler = Gdx.files.internal("audio/tut2.dot.wav"); //TODO: get rid of this? I hacked it in to stop exception
 		}catch(Exception e) {
 			System.out.println("Encountered error: " + e);
 		}
