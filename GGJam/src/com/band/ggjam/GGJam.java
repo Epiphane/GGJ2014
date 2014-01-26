@@ -28,7 +28,8 @@ public class GGJam implements ApplicationListener {
 	@Override
 	public void create() {
 		Art.load();
-		gameState = new InGameState();
+		
+		gameState = new TitleState();
 		gameState.init(this);
 		Gdx.input.setInputProcessor(input);
 	}

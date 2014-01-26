@@ -1,11 +1,9 @@
 package com.band.ggjam;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObject;
 
 public class Wave extends Entity {
 	public static final int WAVE_SPEED = 8;
@@ -25,7 +23,7 @@ public class Wave extends Entity {
 	private int dx, dy;
 	
 	public Wave(int x, int y, Level level) {
-		super(x, y, Art.wave[1][0], level);
+		super(x, y, Art.wave[3][0], level);
 		tileX = (int) (x / GGJam.TILE_SIZE);
 		tileY = (int) (y / GGJam.TILE_SIZE);
 
@@ -52,7 +50,6 @@ public class Wave extends Entity {
 			tickTails();
 			
 			this.setRegion(Art.wave[3 - moveTicks][0]);
-			System.out.println("We're moving");
 		} else {
 			Point offset = input.buttonStack.walkDirection();
 			this.setRegion(Art.wave[3][0]);
@@ -60,7 +57,6 @@ public class Wave extends Entity {
 			if (!offset.equals(new Point(0, 0))) {
 				dx = offset.x;
 				dy = offset.y;
-				System.out.println("Moving, offset is " + offset.x + ", " + offset.y);
 			
 				if(currentLevel.canMove(this, x + (int) GGJam.TILE_SIZE * dx, y + (int) GGJam.TILE_SIZE * dy, getWidth() - 1, getHeight() - 1)) {
 					// Create a new WaveTail at where we're going to go
@@ -76,8 +72,10 @@ public class Wave extends Entity {
 
 					x += GGJam.TILE_SIZE * dx;
 					y += GGJam.TILE_SIZE * dy;
+
+					tails.get(tails.size()-1).setDirection(offset, lastDirection);
 					
-					tails.add(new WaveTail((int) x, (int) y, currentLevel, offset, lastDirection));
+					tails.add(new WaveTail((int) x, (int) y, currentLevel, offset, -1));
 					
 					moving = true;
 					moveTicks = MOVE_TICKS;

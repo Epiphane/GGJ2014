@@ -1,5 +1,6 @@
 package com.band.ggjam;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,6 +12,10 @@ public abstract class GameState {
 	
 	private final String[] chars = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", ".,!?:;\"'+-=/\\< "};
 	protected SpriteBatch spriteBatch;
+	
+	protected Music menuTheme;
+	protected Music snakeMusic;
+	protected Music particleMuisc;
 	
 	private GGJam appListener;
 	

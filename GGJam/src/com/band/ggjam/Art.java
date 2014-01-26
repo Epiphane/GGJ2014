@@ -8,6 +8,8 @@ public class Art {
 	
 	public final static int DIRECTIONS = 4;
 	
+	public static TextureRegion titleScreen;
+	
 	public static TextureRegion[][] particle;
 	public static TextureRegion[][] wave;
 	public static TextureRegion[][] laser;
@@ -21,6 +23,8 @@ public class Art {
 		laser = split("img/laser.png", 16, 16); 
 		wave = split("img/WAIV.png", 32, 32);
 		entities = split("img/entities.png", 32, 32);
+		
+		titleScreen = load("img/title.png", 32, 32);
 		
 		loaded = true;
 	}
