@@ -12,10 +12,10 @@ public class WaveTail extends Entity implements Comparable {
 	int tileX, tileY;
 	int artIndex = 0;
 
-	private static int WAVE_SPEED = Wave.WAVE_SPEED;
-	private static int MOVE_TICKS = Wave.MOVE_TICKS;
-	private int deathTicks = 0;
-	private int moveTicks = 0;
+	public static int WAVE_SPEED = Wave.WAVE_SPEED;
+	public static int MOVE_TICKS = Wave.MOVE_TICKS * 2;
+	public int deathTicks = 0;
+	public int moveTicks = 0;
 
 	public WaveTail(int x, int y, Level level, Point direction, int lastDirection) {
 		super(x, y, Art.wave[0][0], level);
@@ -31,6 +31,9 @@ public class WaveTail extends Entity implements Comparable {
 	public WaveTail(int x, int y, Level level, int index) {
 		this(x, y, level, null, -1);
 		this.index = index;
+		
+		moveTicks = 0;
+		setRegion(Art.wave[3 - moveTicks / 2][artIndex]);
 	}
 	
 	//  7 0 1
@@ -55,25 +58,31 @@ public class WaveTail extends Entity implements Comparable {
 		} else {
 			if (lastDirection == 0 && currDirection == 2) {
 				artIndex = 1;
+				setRotation(90);
 			} else if (lastDirection == 2 && currDirection == 4) {
-				artIndex = 2;
+				artIndex = 1;
+				setRotation(0);
 			} else if (lastDirection == 4 && currDirection == 6) {
-				artIndex = 3;
+				artIndex = 1;
+				setRotation(-90);
 			} else if (lastDirection == 6 && currDirection == 0) {
-				artIndex = 4;
+				artIndex = 1;
+				setRotation(180);
 			} else if (lastDirection == 0 && currDirection == 6) {
-				artIndex = 5;
+				artIndex = 2;
+				setRotation(90);
 			} else if (lastDirection == 2 && currDirection == 0) {
-				artIndex = 6;
+				artIndex = 2;
+				setRotation(0);
 			} else if (lastDirection == 4 && currDirection == 2) {
-				artIndex = 7;
+				artIndex = 2;
+				setRotation(-90);
 			} else if (lastDirection == 6 && currDirection == 4) {
-				artIndex = 8;
+				artIndex = 2;
+				setRotation(180);
 			}
 		}
 		
-		this.setRegion(Art.wave[0][0]);
-
 		return Utility.directionFromOffset(direction);
 	}
 
@@ -93,9 +102,11 @@ public class WaveTail extends Entity implements Comparable {
 				dead = true;
 			}
 		} else if (moveTicks > 0) {
+			//System.out.println(moveTicks);
 			moveTicks--;
-			this.setRegion(Art.wave[3 - moveTicks][0]);
 		}
+		setRegion(Art.wave[3 - moveTicks / 2][artIndex]);
+		
 	}
 
 	@Override
