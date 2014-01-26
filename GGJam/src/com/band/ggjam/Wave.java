@@ -30,6 +30,8 @@ public class Wave extends Entity {
 
 		spriteSheet = Art.wave;
 		tails = new ArrayList<WaveTail>();
+		
+		lastTwoDirections = new Stack<Integer>();
 	}
 	
 	public void tick(Input input) {
@@ -75,6 +77,9 @@ public class Wave extends Entity {
 					
 					moving = true;
 					moveTicks = MOVE_TICKS;
+					
+					lastTwoDirections.push(Utility.directionFromOffset(offset));
+					
 					
 					this.setRotation(Utility.dirToDegree(offset));
 			

@@ -2,8 +2,6 @@ package com.band.ggjam;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -82,13 +80,11 @@ public class Level {
 		}
 		
 		// Get all other objects from layer #2
-		Pattern tailFinder = Pattern.compile("t(\\d+)");
-		Matcher tailMatcher;
 		ArrayList<WaveTail> newTails = new ArrayList<WaveTail>();
 		Point lastTail = new Point(-1, -1);
 		
 		for(MapObject object : map.getLayers().get(2).getObjects()) {
-			tailMatcher = tailFinder.matcher(object.getName());
+			
 			MapProperties properties = object.getProperties();
 			if(object.getName().equals("Goal")) {
 				goal = object;
@@ -101,11 +97,12 @@ public class Level {
 				lastTail = new Point(wave.tileX, wave.tileY);
 			}
 			else if(object.getName().equals("Emitter")) {
-				add(new Emitter((Integer) properties.get("x"), (Integer) properties.get("y"), this), false);
+				//add(new Emitter((Integer) properties.get("x"), (Integer) properties.get("y"), this), false);
 			}
-			else if(tailMatcher.find()) {
+			else if(object.getName().charAt(0) == 't') {
+				int tailIndex = Integer.parseInt(object.getName().substring(1));
 				newTails.add(new WaveTail( (Integer) properties.get("x"), (Integer) properties.get("y"), 
-						this, Integer.parseInt(tailMatcher.group(1))));
+						this, tailIndex));
 			}
 		}
 		
