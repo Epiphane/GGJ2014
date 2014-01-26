@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
 
 public class Wave extends Entity {
 	public static final int WAVE_SPEED = 8;
@@ -16,8 +17,8 @@ public class Wave extends Entity {
 	
 	private TextureRegion[][] spriteSheet;
 	
-	public ArrayList<WaveTail> tails;
-	private Stack<Integer> lastTwoDirections;
+	private ArrayList<WaveTail> tails;
+	private int lastDirection;
 	
 	int tileX, tileY;
 	
@@ -30,8 +31,11 @@ public class Wave extends Entity {
 
 		spriteSheet = Art.wave;
 		tails = new ArrayList<WaveTail>();
-		
-		lastTwoDirections = new Stack<Integer>();
+	}
+	
+	public void setTails(ArrayList<WaveTail> tails) {
+		this.tails = tails;
+		lastDirection = Utility.directionFromOffset(tails.get(tails.size() - 1).direction);
 	}
 	
 	public void tick(Input input) {
@@ -67,7 +71,10 @@ public class Wave extends Entity {
 				
 				if(currentLevel.canMove(this, x + WAVE_SPEED * dx, y + WAVE_SPEED * dy, getWidth() - 1, getHeight() - 1)) {
 					// Create a new WaveTail at our old location
-					tails.add(new WaveTail((int) x, (int) y, currentLevel, offset));
+					// Be smart about corners
+					
+					tails.add(new WaveTail((int) x, (int) y, currentLevel, offset, lastDirection));
+					lastDirection = Utility.directionFromOffset(tails.get(tails.size() - 1).direction);
 					
 					// Tell the WaveTail at the end to kill itself
 					tails.get(0).die();
@@ -77,8 +84,6 @@ public class Wave extends Entity {
 					
 					moving = true;
 					moveTicks = MOVE_TICKS;
-					
-					lastTwoDirections.push(Utility.directionFromOffset(offset));
 					
 					
 					this.setRotation(Utility.dirToDegree(offset));
@@ -123,5 +128,9 @@ public class Wave extends Entity {
 	
 	public boolean canPass(Entity other) {
 		return (other instanceof Laser);
+	}
+
+	public ArrayList<WaveTail> getTails() {
+		return tails;
 	}
 }

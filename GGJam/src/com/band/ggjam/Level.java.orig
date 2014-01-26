@@ -98,16 +98,20 @@ public class Level {
 				lastTail = new Point(wave.tileX, wave.tileY);
 			}
 			else if(object.getName().equals("Emitter")) {
-				add(new Emitter((Integer) properties.get("x"), (Integer) properties.get("y"), this), false);
+				//add(new Emitter((Integer) properties.get("x"), (Integer) properties.get("y"), this), false);
 			}
+<<<<<<< HEAD
+			else if(object.getName().charAt(0) == 't') {
+				int tailIndex = Integer.parseInt(object.getName().substring(1));
+=======
 			else if(object.getName().equals("Door")) {
 				add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
 			}
 			else if(object.getName().equals("Switch")) {
 				add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
 			}
-			else if(object.getName().charAt(0) == 't') {
-				int tailIndex = Integer.parseInt(object.getName().substring(1));
+			else if(tailMatcher.find()) {
+>>>>>>> 4c726edb7992d673501c6ac4b6961d122983ec07
 				newTails.add(new WaveTail( (Integer) properties.get("x"), (Integer) properties.get("y"), 
 						this, tailIndex));
 			}
@@ -115,15 +119,14 @@ public class Level {
 		
 		// Sort the wave tails
 		Collections.sort(newTails);
-		int lastDirection = -1;
 		
+		WaveTail lastGuy = newTails.get(newTails.size() - 1);
 		for (int i = newTails.size() - 1; i >= 0; i--) {
 			WaveTail w = newTails.get(i);
-			lastDirection = w.setDirection(new Point(lastTail.x - w.tileX, lastTail.y - w.tileY), lastDirection);
-			
+			w.setDirection(new Point(lastTail.x - w.tileX, lastTail.y - w.tileY));
 			lastTail = new Point(w.tileX, w.tileY);
 		}
-		wave.setTails(newTails);
+		wave.tails = newTails;
 		
 		batch = new SpriteBatch(1);
 		
@@ -168,8 +171,8 @@ public class Level {
 
 		if(e instanceof Wave) {
 			Wave wave = (Wave) e;
-			for(int i = 0; i < wave.getTails().size(); i ++) {
-				Entity other = wave.getTails().get(i);
+			for(int i = 0; i < wave.tails.size(); i ++) {
+				Entity other = wave.tails.get(i);
 				if(other.collide(x, y, w, h))
 					return false;
 			}

@@ -15,6 +15,8 @@ public class Entity extends Sprite {
 	/** Current direction */
 	protected float dx, dy;
 	
+	public boolean hazard = false;
+	
 	public boolean dead = false;
 	
 	public boolean drawable;

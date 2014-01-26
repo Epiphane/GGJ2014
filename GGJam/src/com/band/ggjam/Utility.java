@@ -88,5 +88,8 @@ public class Utility {
 		return dirToDegree(directionFromOffset(offset));
 	}
 	
-	
+	public static int RGBfromHSV(float h, float s, float v) {
+		return 0;
+		//return Color.HSBtoRGB(h, s, v);
+	}
 }
