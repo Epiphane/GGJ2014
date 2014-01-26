@@ -131,7 +131,7 @@ public class Level {
 			}
 		}
 
-		newTails.add(new WaveTail( (int) wave.x, (int) wave.y, this, newTails.size()));
+		newTails.add(new WaveTail( (int) wave.x, (int) wave.y, this, -1));
 		
 		// Sort the wave tails
 		Collections.sort(newTails);
@@ -150,6 +150,8 @@ public class Level {
 		controllingParticle = true;
 		beatLevel = false;
 		particleExplodeLoss = false;
+		
+		wave.tick(null);
 //		particleSpawning = true;
 	}
 	

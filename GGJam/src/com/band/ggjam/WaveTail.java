@@ -31,6 +31,9 @@ public class WaveTail extends Entity implements Comparable {
 	public WaveTail(int x, int y, Level level, int index) {
 		this(x, y, level, null, -1);
 		this.index = index;
+		
+		moveTicks = 0;
+		setRegion(Art.wave[3 - moveTicks / 2][artIndex]);
 	}
 	
 	//  7 0 1

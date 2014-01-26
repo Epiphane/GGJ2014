@@ -41,7 +41,7 @@ public class Wave extends Entity {
 
 		tickTails();
 		
-		if (moving) {
+		if (moving || input == null) {
 			moveTicks--;
 			if (moveTicks == 0) {
 				moving = false;
