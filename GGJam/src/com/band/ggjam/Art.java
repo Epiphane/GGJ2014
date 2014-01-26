@@ -17,8 +17,8 @@ public class Art {
 	public static boolean loaded = false;
 	
 	public static void load () {
-		particle = split("img/DAHT.png", 32, 32);
-		laser = split("img/laser.png", 32, 8); 
+		particle = split("img/DAHT.png", 31, 32);
+		laser = split("img/laser.png", 16, 16); 
 		wave = split("img/WAIV.png", 32, 32);
 		entities = split("img/entities.png", 32, 32);
 		

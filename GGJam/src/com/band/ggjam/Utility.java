@@ -1,5 +1,7 @@
 package com.band.ggjam;
 
+import java.awt.Color;
+
 public class Utility {
 	/**
 	 * Change from a direction (number from 0-7) to a set of
@@ -88,5 +90,7 @@ public class Utility {
 		return dirToDegree(directionFromOffset(offset));
 	}
 	
-	
+	public static int RGBfromHSV(float h, float s, float v) {
+		return Color.HSBtoRGB(h, s, v);
+	}
 }

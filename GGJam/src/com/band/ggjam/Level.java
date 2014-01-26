@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
@@ -36,7 +37,7 @@ public class Level {
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle;
 	
-	private boolean beatLevel;
+	private boolean beatLevel, particleExplodeLoss;
 	
 	/**
 	 * Contains the filename of the next level, or null if no level afterwards
@@ -103,6 +104,12 @@ public class Level {
 			else if(object.getName().equals("Emitter")) {
 				add(new Emitter((Integer) properties.get("x"), (Integer) properties.get("y"), this), false);
 			}
+			else if(object.getName().equals("Door")) {
+				add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
+			}
+			else if(object.getName().equals("Switch")) {
+				add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
+			}
 			else if(tailMatcher.find()) {
 				newTails.add(new WaveTail( (Integer) properties.get("x"), (Integer) properties.get("y"), 
 						this, Integer.parseInt(tailMatcher.group(1))));
@@ -124,6 +131,7 @@ public class Level {
 		
 		controllingParticle = true;
 		beatLevel = false;
+		particleExplodeLoss = false;
 	}
 	
 	/**
@@ -133,10 +141,10 @@ public class Level {
 	 * @return CAN WE MOVE THERE OR NOT
 	 */
 	public boolean canMove(Entity e, float x, float y, float w, float h) {
-		float x0 = (x    );// * GGJam.TILE_SIZE;
-		float y0 = (y    );// * GGJam.TILE_SIZE;
-		float x1 = (x + w);// * GGJam.TILE_SIZE;
-		float y1 = (y + h);// * GGJam.TILE_SIZE;
+		float x0 = (x    ) + 2;// * GGJam.TILE_SIZE;
+		float y0 = (y    ) + 2;// * GGJam.TILE_SIZE;
+		float x1 = (x + w) - 2;// * GGJam.TILE_SIZE;
+		float y1 = (y + h) - 2;// * GGJam.TILE_SIZE;
 		
 //		System.out.println("Checking ["+x0+","+y0+","+x1+","+y1+"]");
 		
@@ -155,20 +163,34 @@ public class Level {
 			
 		}
 		else
-			if(!e.canPass(particle) && particle.collide(x, y, w, h))
+			if(!e.canPass(particle) && particle.collide(x, y, w, h)) {
+				if(e.hazard) particleExplodeLoss = true;
 				return false;
+			}
 
-		if(!(e instanceof Wave) && !e.canPass(wave) && wave.collide(x, y, w, h))
+		if(e instanceof Wave) {
+			Wave wave = (Wave) e;
+			for(int i = 0; i < wave.tails.size(); i ++) {
+				Entity other = wave.tails.get(i);
+				if(other.collide(x, y, w, h))
+					return false;
+			}
+		}
+		else if(!e.canPass(wave) && wave.collide(x, y, w, h))
 			return false;
 		
 		for(Entity other : entities) {
-			if(!e.canPass(other) && other.collide(x, y, w, h))
+			if(!e.canPass(other) && other.collide(x, y, w, h)) {
+				if(e instanceof Particle) particleExplodeLoss = true;
 				return false;
+			}
 		}
 		
 		for(Entity other : entitiesSubLayer) {
-			if(!e.canPass(other) && other.collide(x, y, w, h))
+			if(!e.canPass(other) && other.collide(x, y, w, h)) {
+				if(e instanceof Particle) particleExplodeLoss = true;
 				return false;
+			}
 		}
 		
 		return true;
@@ -183,8 +205,10 @@ public class Level {
 		
 		for(Entity e : entitiesSubLayer)
 			e.draw(batch);
-		
+
+		batch.setColor(particle.getColor());
 		if(particle != null) particle.draw(batch);
+		batch.setColor(Color.WHITE);
 		if(wave != null) wave.draw(batch);
 		
 		for(Entity e : entities)
@@ -205,6 +229,10 @@ public class Level {
 			
 			if(Math.abs(dx) < 0.01f && Math.abs(dy) < 0.01f)
 				gameState.beatLevel(nextLevel);
+		}
+		// If we died, do an animation
+		else if(particleExplodeLoss) {
+			
 		}
 		// Otherwise treat everything normally
 		else {

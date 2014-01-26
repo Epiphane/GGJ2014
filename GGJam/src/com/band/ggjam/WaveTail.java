@@ -75,4 +75,8 @@ public class WaveTail extends Entity implements Comparable {
 	public int compareTo(Object arg0) {
 		return ((WaveTail) arg0).index - index;
 	}
+	
+	public boolean canPass(Entity other) {
+		return (other instanceof Laser);
+	}
 }
