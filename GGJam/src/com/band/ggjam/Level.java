@@ -25,12 +25,6 @@ public class Level {
 	private OrthogonalTiledMapRenderer renderer;
 	
 	/**
-	 * MUSIC VARIABLES
-	 */
-	private Music initialMusic;
-	private Music switchMusic;
-	
-	/**
 	 * Width and height of the level in tiles
 	 */
 	private int width, height;
@@ -299,14 +293,6 @@ public class Level {
 		else {
 			// Switch between snake/particle music
 			if (input.buttonStack.shouldSwitch()) {
-				if(controllingParticle) {
-					initialMusic.setVolume(1);
-					switchMusic.setVolume(0);
-				}
-				else {
-					switchMusic.setVolume(1);
-					initialMusic.setVolume(0);
-				}
 				controllingParticle = !controllingParticle;
 			}
 			
