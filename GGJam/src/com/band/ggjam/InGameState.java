@@ -81,6 +81,9 @@ public class InGameState extends GameState {
 			
 			currentLevel = new Level(nextLevel, this, songs.get(currSong), levelCounter);
 		}
+		else {
+			setScreen(new EndState());
+		}
 	}
 	
 	public void restartLevel() {
