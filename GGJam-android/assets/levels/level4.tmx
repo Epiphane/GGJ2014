@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="24" height="16" tilewidth="32" tileheight="32">
  <properties>
+  <property name="nextLevel" value="level5"/>
   <property name="title" value="Race Condition"/>
  </properties>
  <tileset firstgid="1" name="Basic" tilewidth="32" tileheight="32">
