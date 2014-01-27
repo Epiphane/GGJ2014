@@ -10,6 +10,7 @@ public class Art {
 	
 	public static TextureRegion titleScreen;
 	public static TextureRegion winScreen;
+	public static TextureRegion youLost;
 	
 	public static TextureRegion[][] particle;
 	public static TextureRegion[][] wave;
@@ -30,7 +31,8 @@ public class Art {
 		guys = split("img/font.png", 20, 40);
 		
 		titleScreen = load("img/title.png", 1024, 512);
-		winScreen = load("img/win.png");
+		winScreen = load("img/win.png", 1024, 512);
+		youLost = load("img/lose.png", 512, 128);
 		
 		loaded = true;
 	}

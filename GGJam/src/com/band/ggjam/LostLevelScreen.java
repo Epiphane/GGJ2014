@@ -16,7 +16,9 @@ public class LostLevelScreen extends GameState {
 	public void render() {
 		inGameState.render();
 		
-		
+		spriteBatch.begin();
+		draw(Art.youLost, 150, 200);
+		spriteBatch.end();
 	}
 
 	@Override

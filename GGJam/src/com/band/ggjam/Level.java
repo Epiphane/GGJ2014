@@ -62,18 +62,14 @@ public class Level {
 	private ArrayList<Entity> entitiesSubLayer;
 	
 	@SuppressWarnings("unchecked")
-	public Level(String mapName, GameState gameState, Music initMusic, Music swapMusic) {
+	public Level(String mapName, GameState gameState, Music music, int levelCounter) {
 		entities = new ArrayList<Entity>();
 		entitiesSubLayer = new ArrayList<Entity>();
 		switches = new ArrayList<Switch>();
 		
-		// Load some sounds nigga
-		initialMusic = initMusic;
-		switchMusic = swapMusic;
-		
-		// Play Dem sounds
-		initialMusic.play();
-		swapMusic.play();
+		if(levelCounter == 0) {
+			music.play();
+		}
 		
 		map = new TmxMapLoader().load("levels/"+mapName+".tmx");
 		MapProperties prop = map.getProperties();
