@@ -14,15 +14,19 @@ public class Art {
 	public static TextureRegion[][] wave;
 	public static TextureRegion[][] laser;
 	public static TextureRegion[][] entities;
+	
+	public static TextureRegion[][] guys;
 	public static byte[][] mainCharacterMap;
 	
 	public static boolean loaded = false;
 	
 	public static void load () {
-		particle = split("img/DAHT.png", 31, 32);
-		laser = split("img/laser.png", 16, 16); 
+		particle = split("img/DAHT.png", 32, 32);
+		laser = split("img/laser.png", 32, 32); 
 		wave = split("img/WAIV.png", 32, 32);
 		entities = split("img/entities.png", 32, 32);
+		
+		guys = split("img/font.png", 20, 40);
 		
 		titleScreen = load("img/title.png", 1024, 512);
 		

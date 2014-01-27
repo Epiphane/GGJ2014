@@ -39,6 +39,8 @@ public class Level {
 	private Wave wave;
 	private MapObject goal;
 	
+	private String levelTitle;
+	
 	/** You're either controlling a particle, or a wave.  This tells you which. */
 	public boolean controllingParticle = true;
 	
@@ -76,6 +78,7 @@ public class Level {
 		map = new TmxMapLoader().load("levels/"+mapName+".tmx");
 		MapProperties prop = map.getProperties();
 		nextLevel = (String) prop.get("nextLevel");
+		levelTitle = (String) prop.get("title");
 		
 		width = (Integer) map.getProperties().get("width");
 		height = (Integer) map.getProperties().get("height");
@@ -120,7 +123,10 @@ public class Level {
 				add(new Emitter((Integer) properties.get("x"), (Integer) properties.get("y"), this), false);
 			}
 			else if(object.getName().equals("Door")) {
-				add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
+				if(properties.containsKey("default"))
+					add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger"), true), false);
+				else
+					add(new Door((Integer) properties.get("x"), (Integer) properties.get("y"), this, (String) properties.get("trigger")), false);
 			}
 			else if(object.getName().equals("Switch")) {
 				addSwitch(new Switch((Integer) properties.get("x"), (Integer) properties.get("y"), this, Integer.parseInt((String) properties.get("id"))));
@@ -165,10 +171,12 @@ public class Level {
 	public boolean canMove(Entity e, float x, float y, float w, float h) {
 		if(particleExplodeLoss) return true;
 		
-		float x0 = (x    ) + 2;// * GGJam.TILE_SIZE;
-		float y0 = (y    ) + 2;// * GGJam.TILE_SIZE;
-		float x1 = (x + w) - 2;// * GGJam.TILE_SIZE;
-		float y1 = (y + h) - 2;// * GGJam.TILE_SIZE;
+		int pad = 1;
+		
+		float x0 = (x    ) + pad;// * GGJam.TILE_SIZE;
+		float y0 = (y    ) + pad;// * GGJam.TILE_SIZE;
+		float x1 = (x + w) - pad;// * GGJam.TILE_SIZE;
+		float y1 = (y + h) - pad;// * GGJam.TILE_SIZE;
 		
 //		System.out.println("Checking ["+x0+","+y0+","+x1+","+y1+"]");
 		
@@ -187,7 +195,7 @@ public class Level {
 			
 		}
 		else
-			if(!e.canPass(particle) && particle.collide(x, y, w, h) && !particleExplodeLoss) {
+			if(!e.canPass(particle) && e.collide(particle.x, particle.y, particle.getWidth(), particle.getHeight()) && !particleExplodeLoss) {
 				if(e.hazard) explodeParticle();
 				return false;
 			}
@@ -205,14 +213,14 @@ public class Level {
 		
 		for(Entity other : entities) {
 			if(!e.canPass(other) && other.collide(x, y, w, h)) {
-				if(e.getClass() == Particle.class) explodeParticle();
+				if(e.getClass() == Particle.class && other.hazard) explodeParticle();
 				return false;
 			}
 		}
 		
 		for(Entity other : entitiesSubLayer) {
 			if(!e.canPass(other) && other.collide(x, y, w, h)) {
-				if(e.getClass() == Particle.class) explodeParticle();
+				if(e.getClass() == Particle.class && other.hazard) explodeParticle();
 				return false;
 			}
 		}
@@ -247,6 +255,9 @@ public class Level {
 			if(particle != null) particle.draw(batch);
 			batch.setColor(Color.WHITE);
 		}
+		
+		if(levelTitle != null)
+			drawTitle(levelTitle);
 			
 		batch.end();
 	}
@@ -330,7 +341,7 @@ public class Level {
 
 	public void add(Entity entity, boolean subLayer) {
 		if(subLayer)
-			entitiesSubLayer.add(entity);
+			entitiesSubLayer.add(0, entity);
 		else
 			entities.add(entity);
 	}
@@ -345,5 +356,24 @@ public class Level {
 			add(new MiniParticle(particle.x, particle.y, this, (float) Math.random() * 20 - 10, (float) Math.random() * 20 - 10), false);
 		}
 		particleExplodeLoss = true;
+	}
+	
+	public void drawStringTopRight(String string, float f, float g) {
+		
+		string = string.toUpperCase();
+		f -= string.length() * 20;
+		for(int i = 0; i < string.length(); i ++) {
+			char ch = string.charAt(i);
+			for(int ys = 0; ys < GameState.chars.length; ys ++) {
+				int xs = GameState.chars[ys].indexOf(ch);
+				if(xs >= 0) {
+					batch.draw(Art.guys[xs][ys], f + i * 20, g);
+				}
+			}
+		}
+	}
+	
+	public void drawTitle(String string) {
+		drawStringTopRight(string, width * GGJam.TILE_SIZE, height * GGJam.TILE_SIZE - 40);
 	}
 }

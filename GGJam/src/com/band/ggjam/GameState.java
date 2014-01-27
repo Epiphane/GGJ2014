@@ -10,7 +10,7 @@ public abstract class GameState {
 	protected OrthographicCamera camera;
 	protected SpriteBatch batch;
 	
-	private final String[] chars = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", ".,!?:;\"'+-=/\\< "};
+	public static final String[] chars = {"ABCDEFGHIJKLMNOPQ","RSTUVWXYZ01234567","89.,!?:;\"'+-=/\\< "};
 	protected SpriteBatch spriteBatch;
 	
 	protected Music menuTheme;
@@ -71,10 +71,31 @@ public abstract class GameState {
 			for(int ys = 0; ys < chars.length; ys ++) {
 				int xs = chars[ys].indexOf(ch);
 				if(xs >= 0) {
-					//draw(Art.guys[xs][ys+9], x + i * 6, y);
+					draw(Art.guys[xs][ys], x + i * 20, y);
 				}
 			}
 		}
+	}
+	
+	public void drawStringTopRight(String string, int x, int y) {
+		spriteBatch.begin();
+		
+		string = string.toUpperCase();
+//		x -= string.length() * 20;
+		for(int i = 0; i < string.length(); i ++) {
+			char ch = string.charAt(i);
+			for(int ys = 0; ys < chars.length; ys ++) {
+				int xs = chars[ys].indexOf(ch);
+				if(xs >= 0) {
+					draw(Art.guys[xs][ys], x + i * 20, y);
+				}
+			}
+		}
+		spriteBatch.end();
+	}
+	
+	public void drawTitle(String string) {
+		drawStringTopRight(string, GGJam.GAME_WIDTH, GGJam.GAME_HEIGHT);
 	}
 	
 	public abstract void render();

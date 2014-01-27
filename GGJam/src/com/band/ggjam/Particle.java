@@ -38,9 +38,9 @@ public class Particle extends Entity {
 		
 		setRotation(getRotation() + 1);
 
-		h += 0.01f;
-		if(h > 1.0f) h = 0f;
-		setColor(new Color(Utility.RGBfromHSV(h, 0.25f, 1.0f)));
+//		h += 0.01f;
+//		if(h > 1.0f) h = 0f;
+//		setColor(new Color(Utility.RGBfromHSV(h, 0.25f, 1.0f)));
 	}
 
 	public boolean spawn() {
