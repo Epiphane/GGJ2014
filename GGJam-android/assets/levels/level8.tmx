@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="24" height="16" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="nextLevel" value=""/>
+  <property name="title" value="Doorman"/>
+ </properties>
+ <tileset firstgid="1" name="Basic" tilewidth="32" tileheight="32">
+  <image source="../img/tiles.png" width="256" height="128"/>
+ </tileset>
+ <tileset firstgid="33" name="Lights" tilewidth="32" tileheight="32">
+  <image source="../img/tiles_blue.png" width="512" height="256"/>
+ </tileset>
+ <layer name="Tiles" width="24" height="16">
+  <data encoding="base64">
+   LAAAACoAAAAqAAAAKgAAACoAAAA3AAAAKgAAACoAAAAqAAAANwAAACoAAAAqAAAAKgAAADcAAAAqAAAAKgAAACoAAAA3AAAAKgAAACoAAAAqAAAAKgAAACoAAAAtAAAAJwAAACcAAAAnAAAAJwAAACcAAABRAAAAJwAAACcAAAAnAAAAUQAAACcAAAAnAAAAJwAAAFEAAAAnAAAAJwAAACcAAABRAAAAJwAAACcAAAAnAAAAJwAAACcAAAAnAAAAJwAAACcAAAAnAAAAJwAAACcAAABRAAAAJwAAACcAAAAnAAAAUQAAACcAAAAnAAAAJwAAAFEAAAAnAAAAJwAAACcAAABRAAAAJwAAACcAAAAnAAAAJwAAACcAAAAnAAAAJwAAACcAAAA1AAAANQAAADUAAABRAAAANQAAADUAAAA1AAAAUQAAADUAAAA1AAAANQAAAFEAAAA1AAAANQAAADUAAABRAAAANQAAADUAAAA1AAAANQAAADUAAAAnAAAAJwAAACcAAABTAAAAUgAAAFIAAABGAAAAUgAAAFIAAABSAAAARgAAAFIAAABSAAAAUgAAAEYAAABSAAAAUgAAAFIAAABGAAAAUgAAAFIAAABBAAAAQQAAAEEAAAAnAAAAJwAAACcAAABRAAAANgAAACYAAABRAAAANgAAADcAAAAmAAAAUQAAADYAAAA3AAAAJgAAAFEAAAA2AAAANwAAACYAAABRAAAANgAAADcAAAA3AAAANwAAADcAAAArAAAAJwAAACcAAABRAAAAEQAAABEAAABIAAAAEQAAABEAAAARAAAASAAAABEAAAARAAAAEQAAAEgAAAARAAAAEQAAABEAAABIAAAAEQAAABEAAAAFAAAAQQAAAEEAAAAnAAAAJwAAACcAAABRAAAANgAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAArAAAAJwAAACcAAABRAAAANgAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAArAAAAJwAAACcAAABFAAAAVAAAADYAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAArAAAAJwAAACcAAABRAAAAUQAAABIAAAA2AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAArAAAAJwAAACcAAABRAAAAUQAAABAAAAAMAAAAWQAAADYAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAArAAAAJwAAACcAAABRAAAAUQAAABIAAAASAAAAWQAAAFIAAABSAAAACwAAABEAAAARAAAADAAAAFIAAABSAAAACwAAABEAAAARAAAADAAAAFIAAABSAAAAUgAAAFQAAAAnAAAAJwAAACcAAABRAAAAUQAAABIAAAASAAAANgAAADcAAAAmAAAAEgAAADYAAAAmAAAAEgAAADYAAAAmAAAAEgAAADYAAAAmAAAAEgAAADYAAAAmAAAAVwAAAFEAAAAnAAAAJwAAACcAAABVAAAAJQAAAAkAAAAPAAAAEQAAABEAAAARAAAACgAAAFIAAABSAAAACQAAABEAAAARAAAACgAAAFIAAABSAAAACQAAABEAAAARAAAARQAAAFYAAAAnAAAAPAAAADoAAAA3AAAAOgAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA9AAAA
+  </data>
+ </layer>
+ <objectgroup name="Walls" width="24" height="16">
+  <object name="Wall" x="64" y="160">
+   <polygon points="32,0 96,0 96,32 32,32"/>
+  </object>
+  <object name="Wall" x="192" y="160">
+   <polygon points="0,0 0,32 96,32 96,0"/>
+  </object>
+  <object name="Wall" x="320" y="160">
+   <polygon points="0,0 96,0 96,32 0,32"/>
+  </object>
+  <object name="Wall" x="448" y="160">
+   <polygon points="0,0 0,32 96,32 96,0 32,0"/>
+  </object>
+  <object name="Wall" x="768" y="224">
+   <polygon points="0,0 -672,0 -672,32 -672,32 -672,64 -640,64 -640,96 -608,96 -608,128 -544,128 -544,160 -32,160 -32,256 -736,256 -736,0 -768,0 -768,288 0,288"/>
+  </object>
+  <object name="Wall" x="32" y="224">
+   <polygon points="-32,256 -32,0 -32,-224 736,-224 736,0 704,0 704,-32 544,-32 544,-64 704,-64 704,-96 544,-96 544,-192 512,-192 512,-96 416,-96 416,-192 384,-192 384,-96 288,-96 288,-192 256,-192 256,-96 160,-96 160,-192 128,-192 128,-96 32,-96 32,-192 32,-192 32,256"/>
+  </object>
+  <object name="Wall" x="96" y="480">
+   <polygon points="0,0 0,-32 32,-32 32,0"/>
+  </object>
+  <object name="Wall" x="224" y="416">
+   <polygon points="-32,0 64,0 64,32 -32,32"/>
+  </object>
+  <object name="Wall" x="314" y="416">
+   <polygon points="11,3 64,3 64,32 11,32"/>
+  </object>
+  <object name="Wall" x="410" y="415">
+   <polygon points="11,3 64,3 64,32 11,32"/>
+  </object>
+  <object name="Wall" x="506" y="415">
+   <polygon points="11,3 64,3 64,32 11,32"/>
+  </object>
+  <object name="Wall" x="604" y="415">
+   <polygon points="11,3 64,3 64,32 11,32"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Objects" width="24" height="16">
+  <object name="Particle" x="640" y="192" width="32" height="32"/>
+  <object name="Emitter" x="544" y="32" width="32" height="32"/>
+  <object name="Wave" x="640" y="128" width="32" height="32"/>
+  <object name="t0" type="waveTail" x="672" y="128" width="32" height="32"/>
+  <object name="Emitter" x="416" y="32" width="32" height="32"/>
+  <object name="Emitter" x="288" y="32" width="32" height="32"/>
+  <object name="Emitter" x="160" y="32" width="32" height="32"/>
+  <object name="Switch" x="544" y="192" width="32" height="32">
+   <properties>
+    <property name="id" value="0"/>
+   </properties>
+  </object>
+  <object name="Goal" x="672" y="416" width="32" height="32"/>
+  <object name="Emitter" x="192" y="384" width="32" height="32"/>
+  <object name="Switch" x="416" y="192" width="32" height="32">
+   <properties>
+    <property name="id" value="0"/>
+   </properties>
+  </object>
+  <object name="Switch" x="288" y="192" width="32" height="32">
+   <properties>
+    <property name="id" value="0"/>
+   </properties>
+  </object>
+  <object name="Switch" x="160" y="192" width="32" height="32">
+   <properties>
+    <property name="id" value="0"/>
+   </properties>
+  </object>
+  <object name="Door" x="544" y="160" width="32" height="32">
+   <properties>
+    <property name="trigger" value="0/1/2/3"/>
+   </properties>
+  </object>
+  <object name="Emitter" x="64" y="448" width="32" height="32"/>
+  <object name="Door" x="416" y="160" width="32" height="32">
+   <properties>
+    <property name="trigger" value="0/1/2/3"/>
+   </properties>
+  </object>
+  <object name="Door" x="288" y="160" width="32" height="32">
+   <properties>
+    <property name="trigger" value="0/1/2/3"/>
+   </properties>
+  </object>
+  <object name="Door" x="160" y="160" width="32" height="32">
+   <properties>
+    <property name="trigger" value="0/1/2/3"/>
+   </properties>
+  </object>
+  <object name="Emitter" x="704" y="448" width="32" height="32"/>
+ </objectgroup>
+</map>
