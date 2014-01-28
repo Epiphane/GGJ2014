@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="24" height="16" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="nextLevel" value="impossible"/>
+  <property name="title" value="The Sweet Spot"/>
+ </properties>
+ <tileset firstgid="1" name="Basic" tilewidth="32" tileheight="32">
+  <image source="../img/tiles.png" width="256" height="128"/>
+ </tileset>
+ <tileset firstgid="33" name="Lights" tilewidth="32" tileheight="32">
+  <image source="../img/tiles_blue.png" width="512" height="256"/>
+ </tileset>
+ <layer name="Tiles" width="24" height="16">
+  <data encoding="base64">
+   IQAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAjAAAAIwAAACMAAAAiAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABpAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABZAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAlAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAnAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAA2AAAANwAAADcAAAArAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAAWAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAFcAAAArAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAA2AAAANwAAADcAAAArAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAnAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAA1AAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAFgAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABZAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABpAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAANAAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAAEkAAAAkAAAAMQAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAyAAAA
+  </data>
+ </layer>
+ <objectgroup name="Walls" width="24" height="16">
+  <object name="Wall" x="736" y="32">
+   <polygon points="0,0 0,448 -704,448 -704,0 -736,0 -736,480 32,480 32,-32 -736,-32 -736,0 0,0"/>
+  </object>
+  <object name="Wall" x="352" y="160">
+   <polygon points="0,0 32,0 32,192 32,224 0,224 0,160 -96,160 -93,141 0,128 0,96 -92,88 -96,64 0,64"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="Objects" width="24" height="16">
+  <object name="Particle" x="544" y="256" width="32" height="32"/>
+  <object name="Wave" x="416" y="128" width="32" height="32"/>
+  <object name="t0" type="waveTail" x="448" y="128" width="32" height="32"/>
+  <object name="t1" type="waveTail" x="480" y="128" width="32" height="32"/>
+  <object name="t2" type="waveTail" x="512" y="128" width="32" height="32"/>
+  <object name="t3" type="waveTail" x="544" y="128" width="32" height="32"/>
+  <object name="t4" type="waveTail" x="576" y="128" width="32" height="32"/>
+  <object name="t5" type="waveTail" x="608" y="128" width="32" height="32"/>
+  <object name="t6" type="waveTail" x="640" y="128" width="32" height="32"/>
+  <object name="t7" type="waveTail" x="672" y="128" width="32" height="32"/>
+  <object name="t8" type="waveTail" x="672" y="160" width="32" height="32"/>
+  <object name="t9" type="waveTail" x="672" y="192" width="32" height="32"/>
+  <object name="t10" type="waveTail" x="672" y="224" width="32" height="32"/>
+  <object name="t11" type="waveTail" x="672" y="256" width="32" height="32"/>
+  <object name="t12" type="waveTail" x="672" y="288" width="32" height="32"/>
+  <object name="t13" type="waveTail" x="672" y="320" width="32" height="32"/>
+  <object name="t14" type="waveTail" x="672" y="352" width="32" height="32"/>
+  <object name="t15" type="waveTail" x="640" y="352" width="32" height="32"/>
+  <object name="t16" type="waveTail" x="608" y="352" width="32" height="32"/>
+  <object name="t17" type="waveTail" x="576" y="352" width="32" height="32"/>
+  <object name="t18" type="waveTail" x="544" y="352" width="32" height="32"/>
+  <object name="t19" type="waveTail" x="512" y="352" width="32" height="32"/>
+  <object name="t20" type="waveTail" x="480" y="352" width="32" height="32"/>
+  <object name="t21" type="waveTail" x="448" y="352" width="32" height="32"/>
+  <object name="t22" type="waveTail" x="416" y="352" width="32" height="32"/>
+  <object name="t23" type="waveTail" x="416" y="320" width="32" height="32"/>
+  <object name="t24" type="waveTail" x="416" y="288" width="32" height="32"/>
+  <object name="t25" type="waveTail" x="416" y="256" width="32" height="32"/>
+  <object name="t26" type="waveTail" x="416" y="224" width="32" height="32"/>
+  <object name="t27" type="waveTail" x="416" y="192" width="32" height="32"/>
+  <object name="Emitter" x="480" y="32" width="32" height="32"/>
+  <object name="Emitter" x="704" y="448" width="32" height="32"/>
+  <object name="Emitter" x="704" y="416" width="32" height="32"/>
+  <object name="Emitter" x="704" y="384" width="32" height="32"/>
+  <object name="Emitter" x="704" y="192" width="32" height="32"/>
+  <object name="Emitter" x="704" y="288" width="32" height="32"/>
+  <object name="Emitter" x="704" y="224" width="32" height="32"/>
+  <object name="Emitter" x="704" y="96" width="32" height="32"/>
+  <object name="Emitter" x="704" y="352" width="32" height="32"/>
+  <object name="Emitter" x="704" y="320" width="32" height="32"/>
+  <object name="Emitter" x="704" y="256" width="32" height="32"/>
+  <object name="Emitter" x="704" y="160" width="32" height="32"/>
+  <object name="Emitter" x="704" y="128" width="32" height="32"/>
+  <object name="Emitter" x="384" y="32" width="32" height="32"/>
+  <object name="Emitter" x="352" y="32" width="32" height="32"/>
+  <object name="Emitter" x="320" y="32" width="32" height="32"/>
+  <object name="Emitter" x="288" y="32" width="32" height="32"/>
+  <object name="Emitter" x="256" y="32" width="32" height="32"/>
+  <object name="Emitter" x="224" y="32" width="32" height="32"/>
+  <object name="Emitter" x="192" y="32" width="32" height="32"/>
+  <object name="Emitter" x="160" y="32" width="32" height="32"/>
+  <object name="Emitter" x="128" y="32" width="32" height="32"/>
+  <object name="Emitter" x="96" y="32" width="32" height="32"/>
+  <object name="Emitter" x="64" y="32" width="32" height="32"/>
+  <object name="Emitter" x="32" y="32" width="32" height="32"/>
+  <object name="Emitter" x="704" y="64" width="32" height="32"/>
+  <object name="Emitter" x="704" y="32" width="32" height="32"/>
+  <object name="Emitter" x="672" y="32" width="32" height="32"/>
+  <object name="Emitter" x="640" y="32" width="32" height="32"/>
+  <object name="Emitter" x="576" y="32" width="32" height="32"/>
+  <object name="Emitter" x="608" y="32" width="32" height="32"/>
+  <object name="Emitter" x="512" y="32" width="32" height="32"/>
+  <object name="Emitter" x="544" y="32" width="32" height="32"/>
+  <object name="Emitter" x="448" y="32" width="32" height="32"/>
+  <object name="Emitter" x="416" y="32" width="32" height="32"/>
+  <object name="Emitter" x="128" y="448" width="32" height="32"/>
+  <object name="Emitter" x="160" y="448" width="32" height="32"/>
+  <object name="Emitter" x="96" y="448" width="32" height="32"/>
+  <object name="Emitter" x="64" y="448" width="32" height="32"/>
+  <object name="Emitter" x="32" y="448" width="32" height="32"/>
+  <object name="Emitter" x="32" y="416" width="32" height="32"/>
+  <object name="Emitter" x="32" y="384" width="32" height="32"/>
+  <object name="Emitter" x="32" y="352" width="32" height="32"/>
+  <object name="Emitter" x="32" y="288" width="32" height="32"/>
+  <object name="Emitter" x="32" y="320" width="32" height="32"/>
+  <object name="Emitter" x="32" y="256" width="32" height="32"/>
+  <object name="Emitter" x="32" y="192" width="32" height="32"/>
+  <object name="Emitter" x="32" y="224" width="32" height="32"/>
+  <object name="Emitter" x="32" y="160" width="32" height="32"/>
+  <object name="Emitter" x="32" y="128" width="32" height="32"/>
+  <object name="Emitter" x="32" y="96" width="32" height="32"/>
+  <object name="Emitter" x="32" y="64" width="32" height="32"/>
+  <object name="Emitter" x="480" y="448" width="32" height="32"/>
+  <object name="Emitter" x="448" y="448" width="32" height="32"/>
+  <object name="Emitter" x="416" y="448" width="32" height="32"/>
+  <object name="Emitter" x="384" y="448" width="32" height="32"/>
+  <object name="Emitter" x="320" y="448" width="32" height="32"/>
+  <object name="Emitter" x="288" y="448" width="32" height="32"/>
+  <object name="Emitter" x="352" y="448" width="32" height="32"/>
+  <object name="Emitter" x="256" y="448" width="32" height="32"/>
+  <object name="Emitter" x="224" y="448" width="32" height="32"/>
+  <object name="Emitter" x="192" y="448" width="32" height="32"/>
+  <object name="Emitter" x="672" y="448" width="32" height="32"/>
+  <object name="Emitter" x="640" y="448" width="32" height="32"/>
+  <object name="Emitter" x="512" y="448" width="32" height="32"/>
+  <object name="Emitter" x="608" y="448" width="32" height="32"/>
+  <object name="Emitter" x="544" y="448" width="32" height="32"/>
+  <object name="Emitter" x="576" y="448" width="32" height="32"/>
+  <object name="Goal" x="320" y="256" width="32" height="32"/>
+  <object name="t28" x="416" y="160" width="32" height="32"/>
+ </objectgroup>
+</map>

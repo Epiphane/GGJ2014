@@ -11,9 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class InGameState extends GameState {
 	private Level currentLevel;
 	
-	protected int numSongs = 5;
 	protected int currSong = 0;
-	protected int levelCounter = 0;
 	protected ArrayList<Music> songs = new ArrayList<Music>();
 	
 	private String levelName;
@@ -26,19 +24,17 @@ public class InGameState extends GameState {
 		
 		// Get and set music variables for Tutorial Level
 		FileHandle songHandler = null;
-		songHandler = Gdx.files.internal("audio/tut.dot.wav");
-		songs.add(Gdx.audio.newMusic(songHandler));
 		songHandler = Gdx.files.internal("audio/tut2.wave.wav");
 		songs.add(Gdx.audio.newMusic(songHandler));
 		songHandler = Gdx.files.internal("audio/level1.wave.wav");
 		songs.add(Gdx.audio.newMusic(songHandler));
-		songHandler = Gdx.files.internal("audio/winter.wave.wav");
-		songs.add(Gdx.audio.newMusic(songHandler));
 		songHandler = Gdx.files.internal("audio/main.wav");
+		songs.add(Gdx.audio.newMusic(songHandler));
+		songHandler = Gdx.files.internal("audio/winter.wave.wav");
 		songs.add(Gdx.audio.newMusic(songHandler));
 				
 		//Load all songs
-		for(int i = 0; i < numSongs; i++) {
+		for(int i = 0; i < 4; i++) {
 			songs.get(i).setLooping(true);
 			songs.get(i).setVolume(1);
 		}
@@ -70,16 +66,22 @@ public class InGameState extends GameState {
 		if(nextLevel != null) {
 			levelName = nextLevel;
 			currentLevel.dispose();
+			Boolean changeSong = false;
 			
-			if(levelCounter == 1) {
-				levelCounter = 0;
-				songs.get(currSong).stop();
-				currSong = (currSong+1)%numSongs;
+			if(nextLevel.contains("level1")) {
+				songs.get(currSong++).stop();
+				changeSong = true;
 			}
-			else
-				levelCounter = 1;
+			else if(nextLevel.contains("level5")) {
+				songs.get(currSong++).stop();
+				changeSong = true;
+			}
+			else if(nextLevel.contains("level8")) {
+				songs.get(currSong++).stop();
+				changeSong = true;
+			}
 			
-			currentLevel = new Level(nextLevel, this, songs.get(currSong), levelCounter);
+			currentLevel = new Level(nextLevel, this, songs.get(currSong), changeSong);
 		}
 		else {
 			setScreen(new EndState());
@@ -87,7 +89,10 @@ public class InGameState extends GameState {
 	}
 	
 	public void restartLevel() {
-		currentLevel = new Level(levelName, this, songs.get(currSong), levelCounter);
+		if(levelName.equals("tutorial"))
+			currentLevel = new Level(levelName, this, songs.get(currSong), true);
+		else
+			currentLevel = new Level(levelName, this, songs.get(currSong), false);
 	}
 }
 

@@ -56,12 +56,12 @@ public class Level {
 	private ArrayList<Entity> entitiesSubLayer;
 	
 	@SuppressWarnings("unchecked")
-	public Level(String mapName, GameState gameState, Music music, int levelCounter) {
+	public Level(String mapName, GameState gameState, Music music, boolean changeSong) {
 		entities = new ArrayList<Entity>();
 		entitiesSubLayer = new ArrayList<Entity>();
 		switches = new ArrayList<Switch>();
 		
-		if(levelCounter == 0) {
+		if(changeSong) {
 			music.play();
 		}
 		
